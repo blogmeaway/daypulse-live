@@ -21,7 +21,6 @@ function jsonResponse(data, status = 200, maxAge = 300) {
 
 function getMoonPhase(date = new Date()) {
   const SYNODIC_MONTH = 29.53058867;
-  // Known New Moon: January 6, 2000 at 18:14 UTC
   const KNOWN_NEW_MOON = Date.UTC(2000, 0, 6, 18, 14, 0);
   const daysSince = (date.getTime() - KNOWN_NEW_MOON) / 86400000;
   const cycle = ((daysSince % SYNODIC_MONTH) + SYNODIC_MONTH) % SYNODIC_MONTH;
@@ -179,7 +178,6 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   const searchQuery = url.searchParams.get("search");
 
-  // Mode 1: City autocomplete search for the City Switcher
   if (searchQuery && searchQuery.trim().length >= 2) {
     try {
       const geoRes = await fetch(
@@ -203,7 +201,6 @@ export async function onRequest(context) {
     }
   }
 
-  // Mode 2: Resolve user coordinates (custom query params OR Cloudflare request.cf IP geo)
   const cf = request.cf || {};
   let lat = parseFloat(url.searchParams.get("lat"));
   let lon = parseFloat(url.searchParams.get("lon"));
@@ -217,7 +214,6 @@ export async function onRequest(context) {
     country = cf.country || "GB";
   }
 
-  // Fallback if running outside Cloudflare edge without coordinates
   if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
     lat = 51.5072;
     lon = -0.1276;

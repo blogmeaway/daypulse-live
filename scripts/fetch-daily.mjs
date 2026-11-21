@@ -3,7 +3,7 @@
 // Populates data/today.json with Today & Tomorrow:
 // - World & National Observances (Wikimedia On This Day + Days Of The Year)
 // - 3 Music History Milestones (Wikimedia + This Day in Music)
-// - 3 Notable Birthdays (Wikimedia)
+// - 3 Notable Birthdays + Biographical Trivia Fact (Wikimedia)
 // - Word of the Day, Quote of the Day, Daily Trivia, and fallback News Wire
 
 import fs from "node:fs/promises";
@@ -103,6 +103,24 @@ function decodeHtml(str = "") {
     .replace(/<[^>]+>/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function extractBioTrivia(extract = "", birthYear = null) {
+  const clean = decodeHtml(extract);
+  if (!clean) {
+    return birthYear
+      ? `Born in ${birthYear}, their work left a lasting mark on international culture.`
+      : "";
+  }
+  const sentences = clean
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 24);
+
+  // Prefer the second sentence (usually highlights a concrete milestone/achievement)
+  const candidate = sentences[1] || sentences[0] || "";
+  if (candidate.length <= 155) return candidate;
+  return candidate.slice(0, 152).replace(/\s+\S*$/, "") + "...";
 }
 
 function getDayOfYear(date) {
@@ -340,7 +358,7 @@ async function buildDayBundle(dateObj, dotyRss, tdimRss, isToday) {
     });
   }
 
-  // 3. 3 Notable Birthdays
+  // 3. 3 Notable Birthdays + Trivia Fact
   const birthdays = [];
   if (wiki?.births && Array.isArray(wiki.births)) {
     const ranked = [...wiki.births].sort((a, b) => {
@@ -355,11 +373,13 @@ async function buildDayBundle(dateObj, dotyRss, tdimRss, isToday) {
       const rawText = decodeHtml(b.text || "");
       const name = page?.normalizedtitle || rawText.split(",")[0].trim();
       const role = page?.description || rawText.split(",").slice(1).join(",").trim() || "Notable figure";
+      const fact = extractBioTrivia(page?.extract || "", b.year || null);
       if (name && !birthdays.some((x) => x.name === name)) {
         birthdays.push({
           name,
           year: b.year || null,
           role: role.charAt(0).toUpperCase() + role.slice(1),
+          fact,
           url: page?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(name.replace(/\s+/g, "_"))}`,
         });
       }

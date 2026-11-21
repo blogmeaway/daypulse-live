@@ -19,6 +19,8 @@
       --border: #e3dfd5;
       --accent: #1d4ed8;
       --accent-soft: #eff4ff;
+      --live-red: #dc2626;
+      --live-glow: rgba(220, 38, 38, 0.35);
       --gold: #b45309;
       --gold-soft: #fef3c7;
       --green: #15803d;
@@ -38,6 +40,8 @@
       --border: #2a2f3b;
       --accent: #60a5fa;
       --accent-soft: rgba(96, 165, 250, 0.14);
+      --live-red: #f87171;
+      --live-glow: rgba(248, 113, 113, 0.45);
       --gold: #fbbf24;
       --gold-soft: rgba(251, 191, 36, 0.14);
       --green: #4ade80;
@@ -160,9 +164,51 @@
       font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.05;
+      display: inline-flex;
+      align-items: baseline;
     }
 
-    .brand-dot { color: var(--accent); }
+    @keyframes liveTextPulse {
+      0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 12px var(--live-glow);
+      }
+      50% {
+        opacity: 0.42;
+        text-shadow: none;
+      }
+    }
+
+    @keyframes liveBeaconPulse {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 0 0 var(--live-glow);
+      }
+      50% {
+        opacity: 0.35;
+        transform: scale(0.82);
+        box-shadow: 0 0 0 5px rgba(220, 38, 38, 0);
+      }
+    }
+
+    .brand-live {
+      color: var(--live-red);
+      display: inline-flex;
+      align-items: center;
+      animation: liveTextPulse 2.1s ease-in-out infinite;
+    }
+
+    .live-beacon {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--live-red);
+      display: inline-block;
+      margin-left: 6px;
+      align-self: center;
+      animation: liveBeaconPulse 2.1s ease-in-out infinite;
+    }
 
     .brand-sub {
       color: var(--text-muted);
@@ -312,6 +358,17 @@
     .item-desc {
       font-size: 0.85rem;
       color: var(--text-muted);
+    }
+
+    .bday-trivia {
+      margin-top: 6px;
+      font-size: 0.81rem;
+      line-height: 1.42;
+      color: var(--text);
+      background: var(--surface-alt);
+      padding: 6px 9px;
+      border-radius: 7px;
+      border-left: 2.5px solid var(--gold);
     }
 
     /* Word & Quote */
@@ -733,7 +790,7 @@
     <!-- Masthead -->
     <header class="masthead">
       <div>
-        <h1 class="brand-title">DayPulse<span class="brand-dot">.live</span></h1>
+        <h1 class="brand-title">DayPulse<span class="brand-live">.live<span class="live-beacon" aria-hidden="true"></span></span></h1>
         <p class="brand-sub">Global observances, cultural history, daily wit &amp; four-source world wire.</p>
       </div>
       <div class="day-switcher-wrap">
@@ -920,7 +977,6 @@
       return div.innerHTML;
     }
 
-    // Theme & Unit initialization
     function applyTheme() {
       document.documentElement.setAttribute("data-theme", state.theme);
       document.getElementById("themeToggle").textContent = state.theme === "dark" ? "☀️" : "🌙";
@@ -943,7 +999,6 @@
       applyUnit();
     });
 
-    // Render Weather, Sunset & Moon Phase
     function renderWeatherBar() {
       if (!state.liveWeather) return;
       const { location, weather, moon } = state.liveWeather;
@@ -968,7 +1023,6 @@
       }
     }
 
-    // Fetch Live Edge API (/api/live) with direct Open-Meteo client fallback
     async function loadLiveEdge(customLoc = null) {
       let query = "";
       if (customLoc) {
@@ -985,7 +1039,6 @@
         renderWeatherBar();
         if (data.news) renderNewsWire(data.news);
       } catch (_) {
-        // Fallback directly to Open-Meteo if /api/live is unreachable
         const lat = customLoc?.lat ?? 51.5072;
         const lon = customLoc?.lon ?? -0.1276;
         const city = customLoc?.city ?? "London";
@@ -1014,7 +1067,6 @@
       }
     }
 
-    // Render Day Content (Today / Tomorrow)
     function renderDayBundle() {
       if (!state.dailyData) return;
       const bundle = state.dailyData[state.activeDay] || state.dailyData.today;
@@ -1048,7 +1100,7 @@
         )
         .join("");
 
-      // Notable Birthdays
+      // Notable Birthdays + Fun Trivia Row
       const bdayEl = document.getElementById("birthdaysList");
       bdayEl.innerHTML = (bundle.birthdays || [])
         .map(
@@ -1057,6 +1109,7 @@
             ${b.year ? `<span class="badge">Born ${escapeHtml(String(b.year))}</span>` : ""}
             <a class="item-heading" href="${escapeHtml(b.url || "#")}" target="_blank" rel="noopener">${escapeHtml(b.name)}</a>
             <p class="item-desc">${escapeHtml(b.role || "")}</p>
+            ${b.fact ? `<p class="bday-trivia">✦ ${escapeHtml(b.fact)}</p>` : ""}
           </li>`
         )
         .join("");
@@ -1076,7 +1129,6 @@
           : `— ${bundle.quote.author}`;
       }
 
-      // Trivia with Streak Persistence
       renderTrivia(bundle);
     }
 
@@ -1166,7 +1218,6 @@
       });
     }
 
-    // Wire Source Filter Tabs
     document.getElementById("wireTabs").addEventListener("click", (e) => {
       const btn = e.target.closest(".wire-tab");
       if (!btn) return;
@@ -1178,7 +1229,6 @@
       });
     });
 
-    // Today / Tomorrow Switcher
     const btnToday = document.getElementById("btnToday");
     const btnTomorrow = document.getElementById("btnTomorrow");
 
@@ -1197,7 +1247,6 @@
       renderDayBundle();
     });
 
-    // 7:00 AM Briefing Signup
     document.getElementById("briefingForm").addEventListener("submit", (e) => {
       e.preventDefault();
       const email = document.getElementById("briefingEmail").value.trim();
@@ -1210,7 +1259,6 @@
       document.getElementById("briefingEmail").value = "";
     });
 
-    // City Switcher Modal
     const cityModal = document.getElementById("cityModal");
     const citySearchInput = document.getElementById("citySearchInput");
     const cityResults = document.getElementById("cityResults");
@@ -1290,7 +1338,6 @@
       loadLiveEdge(loc);
     });
 
-    // Bootstrap Application
     async function init() {
       applyTheme();
       applyUnit();

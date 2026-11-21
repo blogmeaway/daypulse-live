@@ -54,18 +54,21 @@
         "name": "Björk",
         "year": 1965,
         "role": "Icelandic singer, songwriter, composer & producer",
+        "fact": "Recorded her self-titled debut studio album in 1977 at age 11, earning platinum status in Iceland.",
         "url": "https://en.wikipedia.org/wiki/Bj%C3%B6rk"
       },
       {
         "name": "Voltaire",
         "year": 1694,
         "role": "French Enlightenment writer, historian & philosopher",
+        "fact": "Wrote over 2,000 books and pamphlets and famously drank dozens of cups of coffee a day.",
         "url": "https://en.wikipedia.org/wiki/Voltaire"
       },
       {
         "name": "René Magritte",
         "year": 1898,
         "role": "Belgian surrealist painter known for 'The Son of Man'",
+        "fact": "Worked as a wallpaper designer and advertising artist before becoming a surrealist icon.",
         "url": "https://en.wikipedia.org/wiki/Ren%C3%A9_Magritte"
       }
     ],
@@ -142,18 +145,21 @@
         "name": "Scarlett Johansson",
         "year": 1984,
         "role": "American actress & singer",
+        "fact": "Made her stage debut at age eight Off-Broadway alongside Ethan Hawke in 'Sophistry'.",
         "url": "https://en.wikipedia.org/wiki/Scarlett_Johansson"
       },
       {
         "name": "Billie Jean King",
         "year": 1943,
         "role": "American tennis champion & gender equality pioneer",
+        "fact": "Won 39 Grand Slam titles and defeated Bobby Riggs in the 1973 'Battle of the Sexes' match.",
         "url": "https://en.wikipedia.org/wiki/Billie_Jean_King"
       },
       {
         "name": "George Eliot",
         "year": 1819,
         "role": "English Victorian novelist ('Middlemarch')",
+        "fact": "Born Mary Ann Evans, she used a male pen name so her novels would be judged seriously.",
         "url": "https://en.wikipedia.org/wiki/George_Eliot"
       }
     ],
