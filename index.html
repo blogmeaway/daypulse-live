@@ -591,68 +591,6 @@
       display: none;
     }
 
-    .briefing-banner {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px 28px;
-      margin-bottom: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      box-shadow: var(--shadow);
-    }
-
-    .briefing-copy h3 {
-      font-size: 1.5rem;
-      margin-bottom: 4px;
-    }
-
-    .briefing-copy p {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-    }
-
-    .briefing-form {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      flex: 1;
-      max-width: 460px;
-    }
-
-    .briefing-form input {
-      flex: 1;
-      min-width: 210px;
-      padding: 11px 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      font-size: 0.92rem;
-    }
-
-    .briefing-form button {
-      padding: 11px 20px;
-      border-radius: 10px;
-      border: none;
-      background: var(--accent);
-      color: #ffffff;
-      font-weight: 600;
-      font-size: 0.92rem;
-      cursor: pointer;
-    }
-
-    .briefing-status {
-      width: 100%;
-      font-size: 0.85rem;
-      color: var(--green);
-      font-weight: 600;
-      display: none;
-    }
-
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -674,6 +612,12 @@
       max-width: 440px;
       padding: 22px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .legal-modal {
+      max-width: 620px;
+      max-height: 82vh;
+      overflow-y: auto;
     }
 
     .modal-top {
@@ -737,16 +681,76 @@
 
     .city-results button:hover { border-color: var(--accent); }
 
+    .legal-body {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .legal-body h4 {
+      color: var(--text);
+      font-size: 0.96rem;
+      margin-top: 6px;
+    }
+
+    .consent-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 0.84rem;
+      font-weight: 500;
+    }
+
     footer {
       margin-top: 40px;
       padding-top: 20px;
       border-top: 1px solid var(--border);
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      flex-direction: column;
       gap: 12px;
       font-size: 0.82rem;
       color: var(--text-muted);
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .legal-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 5px 11px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .legal-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
     }
   </style>
 </head>
@@ -867,497 +871,4 @@
           <p class="word-def" id="wordDef"></p>
           <p class="word-ex" id="wordEx"></p>
         </div>
-        <div class="quote-box">
-          <blockquote class="quote-text" id="quoteText">“—”</blockquote>
-          <div class="quote-author" id="quoteAuthor"></div>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-kicker">
-          <span>Daily Brain Teaser</span>
-          <span class="streak-pill" id="streakBadge">🔥 0-day streak</span>
-        </div>
-        <h2 class="card-title" id="triviaCategory">Daily Trivia</h2>
-        <p class="trivia-q" id="triviaQuestion">Loading question...</p>
-        <div class="trivia-options" id="triviaOptions"></div>
-        <p class="trivia-feedback" id="triviaFeedback"></p>
-      </article>
-    </section>
-
-    <section class="briefing-banner" aria-label="Morning Briefing Signup">
-      <div class="briefing-copy">
-        <div class="card-kicker" style="margin-bottom:4px"><span>Free Daily Digest</span></div>
-        <h3>The 7:00 AM Morning Briefing</h3>
-        <p>Get observances, music milestones, word of the day &amp; top headlines in your inbox every morning at 7:00 AM local time.</p>
-      </div>
-      <form class="briefing-form" id="briefingForm">
-        <input type="email" id="briefingEmail" placeholder="you@example.com" required aria-label="Email address" />
-        <button type="submit">Send at 7:00 AM</button>
-        <div class="briefing-status" id="briefingStatus"></div>
-      </form>
-    </section>
-
-    <footer>
-      <span>© <span id="footerYear">2026</span> DayPulse.live — Automated Daily World Almanac &amp; News Wire.</span>
-      <span id="lastUpdatedLabel">Updated daily at 00:05 UTC</span>
-    </footer>
-  </main>
-
-  <div class="modal-backdrop" id="cityModal" role="dialog" aria-modal="true" aria-labelledby="cityModalTitle">
-    <div class="modal">
-      <div class="modal-top">
-        <strong id="cityModalTitle">Switch City</strong>
-        <button class="icon-btn" id="closeCityModal">✕</button>
-      </div>
-      <input type="text" id="citySearchInput" placeholder="Search any city (e.g., New York, Tokyo, London)..." />
-      <div class="preset-cities" id="presetCities">
-        <button type="button" class="preset-chip" data-auto="1">📍 Auto (My IP)</button>
-        <button type="button" class="preset-chip" data-city="New York" data-country="US" data-lat="40.7128" data-lon="-74.0060">New York</button>
-        <button type="button" class="preset-chip" data-city="London" data-country="UK" data-lat="51.5072" data-lon="-0.1276">London</button>
-        <button type="button" class="preset-chip" data-city="Tokyo" data-country="JP" data-lat="35.6762" data-lon="139.6503">Tokyo</button>
-        <button type="button" class="preset-chip" data-city="Sydney" data-country="AU" data-lat="-33.8688" data-lon="151.2093">Sydney</button>
-        <button type="button" class="preset-chip" data-city="Toronto" data-country="CA" data-lat="43.6532" data-lon="-79.3832">Toronto</button>
-        <button type="button" class="preset-chip" data-city="Dubai" data-country="AE" data-lat="25.2048" data-lon="55.2708">Dubai</button>
-      </div>
-      <ul class="city-results" id="cityResults"></ul>
-    </div>
-  </div>
-
-  <script>
-    const WEATHER_CODES = {
-      0: ["Clear sky", "☀️"],
-      1: ["Mainly clear", "🌤️"],
-      2: ["Partly cloudy", "⛅"],
-      3: ["Overcast", "☁️"],
-      45: ["Fog", "🌫️"],
-      48: ["Rime fog", "🌫️"],
-      51: ["Light drizzle", "🌦️"],
-      53: ["Drizzle", "🌦️"],
-      55: ["Dense drizzle", "🌧️"],
-      61: ["Light rain", "🌧️"],
-      63: ["Rain", "🌧️"],
-      65: ["Heavy rain", "⛈️"],
-      71: ["Light snow", "🌨️"],
-      73: ["Snow", "❄️"],
-      75: ["Heavy snow", "❄️"],
-      80: ["Rain showers", "🌦️"],
-      81: ["Showers", "🌧️"],
-      82: ["Heavy showers", "⛈️"],
-      95: ["Thunderstorm", "⛈️"],
-      96: ["Thunderstorm & hail", "⛈️"],
-      99: ["Severe storm", "⛈️"],
-    };
-
-    const state = {
-      dailyData: null,
-      activeDay: "today",
-      unit: localStorage.getItem("dp_unit") || "C",
-      theme: localStorage.getItem("dp_theme") || "light",
-      liveWeather: null,
-    };
-
-    function escapeHtml(str = "") {
-      const div = document.createElement("div");
-      div.textContent = str;
-      return div.innerHTML;
-    }
-
-    function applyTheme() {
-      document.documentElement.setAttribute("data-theme", state.theme);
-      document.getElementById("themeToggle").textContent = state.theme === "dark" ? "☀️" : "🌙";
-    }
-
-    function applyUnit() {
-      document.getElementById("unitToggle").textContent = "°" + state.unit;
-      renderWeatherBar();
-    }
-
-    document.getElementById("themeToggle").addEventListener("click", () => {
-      state.theme = state.theme === "dark" ? "light" : "dark";
-      localStorage.setItem("dp_theme", state.theme);
-      applyTheme();
-    });
-
-    document.getElementById("unitToggle").addEventListener("click", () => {
-      state.unit = state.unit === "C" ? "F" : "C";
-      localStorage.setItem("dp_unit", state.unit);
-      applyUnit();
-    });
-
-    function renderWeatherBar() {
-      if (!state.liveWeather) return;
-      const { location, weather, moon } = state.liveWeather;
-      document.getElementById("cityName").textContent = location.country
-        ? `${location.city}, ${location.country}`
-        : location.city;
-
-      if (weather) {
-        const [desc, defaultIcon] = WEATHER_CODES[weather.code] || ["Fair", "🌤️"];
-        const icon = weather.code === 0 && !weather.isDay ? "🌙" : defaultIcon;
-        const temp = state.unit === "F" ? `${weather.tempF}°F` : `${weather.tempC}°C`;
-        document.getElementById("weatherIcon").textContent = icon;
-        document.getElementById("weatherTemp").textContent = temp;
-        document.getElementById("weatherDesc").textContent = desc;
-        document.getElementById("sunsetTime").textContent = weather.sunset || "--:--";
-      }
-
-      if (moon) {
-        document.getElementById("moonIcon").textContent = moon.icon;
-        document.getElementById("moonPhase").textContent = moon.name;
-        document.getElementById("moonIllum").textContent = `(${moon.illumination}%)`;
-      }
-    }
-
-    async function loadLiveEdge(customLoc = null) {
-      let query = "";
-      if (customLoc) {
-        query = `?city=${encodeURIComponent(customLoc.city)}&country=${encodeURIComponent(
-          customLoc.country || ""
-        )}&lat=${customLoc.lat}&lon=${customLoc.lon}`;
-      }
-
-      try {
-        const res = await fetch(`/api/live${query}`);
-        if (!res.ok) throw new Error("Edge API unavailable");
-        const data = await res.json();
-        state.liveWeather = data;
-        renderWeatherBar();
-        if (data.news) renderNewsWire(data.news);
-      } catch (_) {
-        const lat = customLoc?.lat ?? 51.5072;
-        const lon = customLoc?.lon ?? -0.1276;
-        const city = customLoc?.city ?? "London";
-        const country = customLoc?.country ?? "UK";
-        try {
-          const wRes = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,is_day&daily=sunset&timezone=auto&forecast_days=1`
-          );
-          const wJson = await wRes.json();
-          state.liveWeather = {
-            location: { city, country, lat, lon },
-            weather: {
-              tempC: Math.round(wJson.current.temperature_2m),
-              tempF: Math.round((wJson.current.temperature_2m * 9) / 5 + 32),
-              code: wJson.current.weather_code,
-              isDay: wJson.current.is_day === 1,
-              sunset: wJson.daily?.sunset?.[0]?.split("T")[1] || "--:--",
-            },
-            moon: { icon: "🌓", name: "Lunar Cycle", illumination: 50 },
-          };
-          renderWeatherBar();
-        } catch (__) {
-          document.getElementById("cityName").textContent = city;
-          document.getElementById("weatherDesc").textContent = "Weather unavailable";
-        }
-      }
-    }
-
-    function renderDayBundle() {
-      if (!state.dailyData) return;
-      const bundle = state.dailyData[state.activeDay] || state.dailyData.today;
-      if (!bundle) return;
-
-      document.getElementById("activeDateLabel").textContent = bundle.displayDate || bundle.isoDate;
-
-      const obsEl = document.getElementById("observancesList");
-      obsEl.innerHTML = (bundle.observances || [])
-        .map(
-          (o) => `
-          <li>
-            <span class="badge">${escapeHtml(o.region || "Global")}</span>
-            <a class="item-heading" href="${escapeHtml(o.url || "#")}" target="_blank" rel="noopener">${escapeHtml(o.title)}</a>
-            <p class="item-desc">${escapeHtml(o.description || "")}</p>
-          </li>`
-        )
-        .join("");
-
-      const musicEl = document.getElementById("musicList");
-      musicEl.innerHTML = (bundle.music || [])
-        .map(
-          (m) => `
-          <li>
-            ${m.year ? `<span class="badge gold">${escapeHtml(String(m.year))}</span>` : ""}
-            <a class="item-heading" href="${escapeHtml(m.url || "#")}" target="_blank" rel="noopener">${escapeHtml(m.title)}</a>
-            <p class="item-desc">${escapeHtml(m.detail || "")}</p>
-          </li>`
-        )
-        .join("");
-
-      const bdayEl = document.getElementById("birthdaysList");
-      bdayEl.innerHTML = (bundle.birthdays || [])
-        .map(
-          (b) => `
-          <li>
-            ${b.year ? `<span class="badge">Born ${escapeHtml(String(b.year))}</span>` : ""}
-            <a class="item-heading" href="${escapeHtml(b.url || "#")}" target="_blank" rel="noopener">${escapeHtml(b.name)}</a>
-            <p class="item-desc">${escapeHtml(b.role || "")}</p>
-            ${b.fact ? `<p class="bday-trivia">✦ ${escapeHtml(b.fact)}</p>` : ""}
-          </li>`
-        )
-        .join("");
-
-      if (bundle.word) {
-        document.getElementById("wordTerm").textContent = bundle.word.word;
-        document.getElementById("wordMeta").textContent = [bundle.word.phonetic, bundle.word.pos].filter(Boolean).join(" · ");
-        document.getElementById("wordDef").textContent = bundle.word.definition;
-        document.getElementById("wordEx").textContent = bundle.word.example ? `“${bundle.word.example}”` : "";
-      }
-
-      if (bundle.quote) {
-        document.getElementById("quoteText").textContent = `“${bundle.quote.text}”`;
-        document.getElementById("quoteAuthor").textContent = bundle.quote.role
-          ? `— ${bundle.quote.author}, ${bundle.quote.role}`
-          : `— ${bundle.quote.author}`;
-      }
-
-      renderTrivia(bundle);
-    }
-
-    function renderTrivia(bundle) {
-      const trivia = bundle.trivia;
-      if (!trivia) return;
-
-      const streak = Number(localStorage.getItem("dp_trivia_streak") || "0");
-      document.getElementById("streakBadge").textContent = `🔥 ${streak}-day streak`;
-      document.getElementById("triviaCategory").textContent = `Daily Trivia · ${trivia.category || "General"}`;
-      document.getElementById("triviaQuestion").textContent = trivia.question;
-
-      const answeredKey = `dp_trivia_ans_${bundle.isoDate}`;
-      const savedAnswer = localStorage.getItem(answeredKey);
-
-      const optionsEl = document.getElementById("triviaOptions");
-      const feedbackEl = document.getElementById("triviaFeedback");
-      feedbackEl.style.display = "none";
-
-      optionsEl.innerHTML = (trivia.options || [])
-        .map((opt) => `<button type="button" class="trivia-opt" data-opt="${escapeHtml(opt)}">${escapeHtml(opt)}</button>`)
-        .join("");
-
-      const buttons = Array.from(optionsEl.querySelectorAll(".trivia-opt"));
-
-      function lockAnswer(chosen, isNewAttempt) {
-        const isCorrect = chosen === trivia.answer;
-        buttons.forEach((btn) => {
-          btn.disabled = true;
-          const val = btn.getAttribute("data-opt");
-          if (val === trivia.answer) btn.classList.add("correct");
-          else if (val === chosen) btn.classList.add("wrong");
-        });
-
-        if (isNewAttempt) {
-          localStorage.setItem(answeredKey, chosen);
-          if (state.activeDay === "today") {
-            const lastDate = localStorage.getItem("dp_trivia_last_date");
-            if (lastDate !== bundle.isoDate) {
-              const newStreak = isCorrect ? streak + 1 : 0;
-              localStorage.setItem("dp_trivia_streak", String(newStreak));
-              localStorage.setItem("dp_trivia_last_date", bundle.isoDate);
-              document.getElementById("streakBadge").textContent = `🔥 ${newStreak}-day streak`;
-            }
-          }
-        }
-
-        feedbackEl.textContent = `${isCorrect ? "✅ Spot on! " : "❌ Not quite. "}${trivia.explanation || ""}`;
-        feedbackEl.style.display = "block";
-      }
-
-      if (savedAnswer) {
-        lockAnswer(savedAnswer, false);
-      } else {
-        buttons.forEach((btn) => {
-          btn.addEventListener("click", () => lockAnswer(btn.getAttribute("data-opt"), true));
-        });
-      }
-    }
-
-    function formatRelativeTime(pubDateStr) {
-      if (!pubDateStr) return "Latest wire";
-      const parsed = Date.parse(pubDateStr);
-      if (Number.isNaN(parsed)) return pubDateStr;
-      const diffMins = Math.max(1, Math.round((Date.now() - parsed) / 60000));
-      if (diffMins < 60) return `${diffMins}m ago`;
-      const diffHrs = Math.round(diffMins / 60);
-      if (diffHrs < 24) return `${diffHrs}h ago`;
-      return new Date(parsed).toLocaleDateString("en-US", { month: "short", day: "numeric" });
-    }
-
-    function renderNewsWire(newsObj) {
-      if (!newsObj) return;
-      const fallbacks = state.dailyData?.fallbackNews || {};
-      ["bbc", "cnn", "fox", "aljazeera"].forEach((key) => {
-        const listEl = document.getElementById(`news-${key}`);
-        let items = Array.isArray(newsObj[key]) ? [...newsObj[key]] : [];
-        if (items.length < 3 && Array.isArray(fallbacks[key])) {
-          for (const fb of fallbacks[key]) {
-            if (items.length >= 3) break;
-            if (!items.some((x) => x.title === fb.title)) {
-              items.push(fb);
-            }
-          }
-        }
-        if (items.length === 0) return;
-        listEl.innerHTML = items
-          .map(
-            (item) => `
-            <li>
-              <a class="news-link" href="${escapeHtml(item.link)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a>
-              <span class="news-time">${escapeHtml(formatRelativeTime(item.pubDate))}</span>
-            </li>`
-          )
-          .join("");
-      });
-    }
-
-    document.getElementById("wireTabs").addEventListener("click", (e) => {
-      const btn = e.target.closest(".wire-tab");
-      if (!btn) return;
-      document.querySelectorAll(".wire-tab").forEach((t) => t.classList.remove("active"));
-      btn.classList.add("active");
-      const src = btn.getAttribute("data-source");
-      document.querySelectorAll(".source-col").forEach((col) => {
-        col.style.display = src === "all" || col.getAttribute("data-col") === src ? "block" : "none";
-      });
-    });
-
-    const btnToday = document.getElementById("btnToday");
-    const btnTomorrow = document.getElementById("btnTomorrow");
-
-    btnToday.addEventListener("click", () => {
-      state.activeDay = "today";
-      btnToday.classList.add("active");
-      btnTomorrow.classList.remove("active");
-      renderDayBundle();
-    });
-
-    btnTomorrow.addEventListener("click", () => {
-      if (!state.dailyData?.tomorrow) return;
-      state.activeDay = "tomorrow";
-      btnTomorrow.classList.add("active");
-      btnToday.classList.remove("active");
-      renderDayBundle();
-    });
-
-    document.getElementById("briefingForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = document.getElementById("briefingEmail").value.trim();
-      if (!email) return;
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "local time";
-      localStorage.setItem("dp_briefing_email", email);
-      const statusEl = document.getElementById("briefingStatus");
-      statusEl.textContent = `✓ Subscribed ${email} for the 7:00 AM briefing (${tz}).`;
-      statusEl.style.display = "block";
-      document.getElementById("briefingEmail").value = "";
-    });
-
-    const cityModal = document.getElementById("cityModal");
-    const citySearchInput = document.getElementById("citySearchInput");
-    const cityResults = document.getElementById("cityResults");
-
-    document.getElementById("openCityModal").addEventListener("click", () => {
-      cityModal.classList.add("open");
-      citySearchInput.focus();
-    });
-
-    document.getElementById("closeCityModal").addEventListener("click", () => {
-      cityModal.classList.remove("open");
-    });
-
-    cityModal.addEventListener("click", (e) => {
-      if (e.target === cityModal) cityModal.classList.remove("open");
-    });
-
-    document.getElementById("presetCities").addEventListener("click", (e) => {
-      const chip = e.target.closest(".preset-chip");
-      if (!chip) return;
-      if (chip.getAttribute("data-auto") === "1") {
-        localStorage.removeItem("dp_custom_city");
-        cityModal.classList.remove("open");
-        loadLiveEdge(null);
-        return;
-      }
-      const loc = {
-        city: chip.getAttribute("data-city"),
-        country: chip.getAttribute("data-country"),
-        lat: parseFloat(chip.getAttribute("data-lat")),
-        lon: parseFloat(chip.getAttribute("data-lon")),
-      };
-      localStorage.setItem("dp_custom_city", JSON.stringify(loc));
-      cityModal.classList.remove("open");
-      loadLiveEdge(loc);
-    });
-
-    let searchTimer = null;
-    citySearchInput.addEventListener("input", () => {
-      clearTimeout(searchTimer);
-      const q = citySearchInput.value.trim();
-      if (q.length < 2) {
-        cityResults.innerHTML = "";
-        return;
-      }
-      searchTimer = setTimeout(async () => {
-        try {
-          const res = await fetch(`/api/live?search=${encodeURIComponent(q)}`);
-          const data = await res.json();
-          cityResults.innerHTML = (data.results || [])
-            .map(
-              (r) => `
-              <li>
-                <button type="button" data-city="${escapeHtml(r.name)}" data-country="${escapeHtml(r.country)}" data-lat="${r.lat}" data-lon="${r.lon}">
-                  ${escapeHtml(r.name)}${r.admin1 ? `, ${escapeHtml(r.admin1)}` : ""} — ${escapeHtml(r.country)}
-                </button>
-              </li>`
-            )
-            .join("");
-        } catch (_) {
-          cityResults.innerHTML = "";
-        }
-      }, 280);
-    });
-
-    cityResults.addEventListener("click", (e) => {
-      const btn = e.target.closest("button");
-      if (!btn) return;
-      const loc = {
-        city: btn.getAttribute("data-city"),
-        country: btn.getAttribute("data-country"),
-        lat: parseFloat(btn.getAttribute("data-lat")),
-        lon: parseFloat(btn.getAttribute("data-lon")),
-      };
-      localStorage.setItem("dp_custom_city", JSON.stringify(loc));
-      cityModal.classList.remove("open");
-      loadLiveEdge(loc);
-    });
-
-    async function init() {
-      applyTheme();
-      applyUnit();
-      document.getElementById("footerYear").textContent = String(new Date().getFullYear());
-
-      const savedCityRaw = localStorage.getItem("dp_custom_city");
-      const savedCity = savedCityRaw ? JSON.parse(savedCityRaw) : null;
-      loadLiveEdge(savedCity);
-
-      try {
-        const res = await fetch("/data/today.json?v=" + Math.floor(Date.now() / 300000));
-        state.dailyData = await res.json();
-        btnTomorrow.disabled = !state.dailyData.tomorrow;
-        if (state.dailyData.updatedAt) {
-          document.getElementById("lastUpdatedLabel").textContent =
-            "Edition updated: " + new Date(state.dailyData.updatedAt).toUTCString();
-        }
-        renderDayBundle();
-        if (state.dailyData.fallbackNews && !state.liveWeather?.news) {
-          renderNewsWire(state.dailyData.fallbackNews);
-        } else if (state.liveWeather?.news) {
-          renderNewsWire(state.liveWeather.news);
-        }
-      } catch (err) {
-        document.getElementById("activeDateLabel").textContent = new Date().toDateString();
-      }
-    }
-
-    init();
-  </script>
-</body>
-</html>
+        <div class="quote-
