@@ -3,914 +3,1361 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DayPulse.live — Daily World Almanac &amp; News Wire</title>
+  <title>DayPulse — Your Daily World Briefing, Observances, Weather &amp; News Wire</title>
+  <meta name="description" content="Start your morning with DayPulse: local weather, sunset and moon phase, world observances, music history milestones, notable birthdays, word &amp; quote of the day, daily trivia, and a 4-source global news wire." />
+  <link rel="canonical" href="https://daypulse.live/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0b0f17;
-      --surface: #121826;
-      --surface-alt: #182032;
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
-      --border: #243047;
-      --accent: #38bdf8;
-      --green: #22c55e;
-      --red-live: #dc2626;
-      --red-live-glow: #f87171;
-    }
-
-    body.light {
-      --bg: #f8fafc;
+      --bg: #f8f7f4;
       --surface: #ffffff;
-      --surface-alt: #f1f5f9;
-      --text: #0f172a;
-      --text-muted: #475569;
-      --border: #cbd5e1;
-      --accent: #0284c7;
-      --green: #16a34a;
-      --red-live: #dc2626;
-      --red-live-glow: #ef4444;
+      --surface-alt: #f1efe9;
+      --text: #16181d;
+      --text-muted: #5a606d;
+      --border: #e3dfd5;
+      --accent: #1d4ed8;
+      --accent-soft: #eff4ff;
+      --live-red: #dc2626;
+      --live-glow: rgba(220, 38, 38, 0.35);
+      --gold: #b45309;
+      --gold-soft: #fef3c7;
+      --green: #15803d;
+      --green-soft: #dcfce7;
+      --red: #b91c1c;
+      --red-soft: #fee2e2;
+      --shadow: 0 2px 10px rgba(22, 24, 29, 0.04);
+      --radius: 14px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    [data-theme="dark"] {
+      --bg: #0f1115;
+      --surface: #171a21;
+      --surface-alt: #20242e;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border: #2a2f3b;
+      --accent: #60a5fa;
+      --accent-soft: rgba(96, 165, 250, 0.14);
+      --live-red: #f87171;
+      --live-glow: rgba(248, 113, 113, 0.45);
+      --gold: #fbbf24;
+      --gold-soft: rgba(251, 191, 36, 0.14);
+      --green: #4ade80;
+      --green-soft: rgba(74, 222, 128, 0.14);
+      --red: #f87171;
+      --red-soft: rgba(248, 113, 113, 0.14);
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.5;
-      min-height: 100vh;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    h1, h2, h3, .serif {
+      font-family: 'Newsreader', Georgia, serif;
     }
 
-    .container {
-      max-width: 1180px;
+    a { color: inherit; text-decoration: none; }
+
+    .utility-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .utility-inner {
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 20px 18px 48px;
-    }
-
-    /* Header */
-    header.topbar {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       justify-content: space-between;
+      gap: 12px;
+      font-size: 0.875rem;
+    }
+
+    .utility-metrics {
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
       gap: 14px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 22px;
     }
 
-    .brand-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+    .city-btn {
       display: inline-flex;
       align-items: center;
-      gap: 2px;
-    }
-
-    .brand-live {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      color: var(--red-live);
-      font-weight: 900;
-      animation: liveTextPulse 1.6s ease-in-out infinite;
-    }
-
-    .live-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--red-live);
-      box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.75);
-      animation: liveBeaconPulse 1.6s infinite;
-    }
-
-    @keyframes liveTextPulse {
-      0%, 100% {
-        color: #dc2626;
-        text-shadow: 0 0 6px rgba(220, 38, 38, 0.25);
-      }
-      50% {
-        color: #f87171;
-        text-shadow: 0 0 14px rgba(248, 113, 113, 0.7);
-      }
-    }
-
-    @keyframes liveBeaconPulse {
-      0% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.75);
-      }
-      70% {
-        transform: scale(1.05);
-        box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
-      }
-      100% {
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
-      }
-    }
-
-    .date-sub {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .icon-btn, .city-input {
-      background: var(--surface);
+      gap: 6px;
+      background: var(--surface-alt);
       border: 1px solid var(--border);
       color: var(--text);
-      border-radius: 10px;
-      padding: 7px 12px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-weight: 600;
       font-size: 0.84rem;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .city-btn:hover { border-color: var(--accent); }
+
+    .metric-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .metric-pill strong { color: var(--text); font-weight: 600; }
+
+    .utility-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
     }
 
-    .city-input {
-      cursor: text;
-      min-width: 145px;
-      font-weight: 400;
+    .icon-btn:hover { border-color: var(--accent); }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
     }
 
-    .icon-btn:hover {
-      border-color: var(--accent);
-    }
-
-    /* Sections */
-    .section {
+    .masthead {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 22px;
+      border-bottom: 2px solid var(--text);
       margin-bottom: 28px;
     }
 
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 12px;
-      gap: 10px;
-    }
-
-    .section-title {
-      font-size: 1.08rem;
+    .brand-title {
+      font-size: clamp(2.1rem, 4vw, 3rem);
       font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      display: inline-flex;
+      align-items: baseline;
     }
 
-    .section-meta {
-      font-size: 0.8rem;
+    @keyframes liveTextPulse {
+      0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 12px var(--live-glow);
+      }
+      50% {
+        opacity: 0.42;
+        text-shadow: none;
+      }
+    }
+
+    @keyframes liveBeaconPulse {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 0 0 var(--live-glow);
+      }
+      50% {
+        opacity: 0.35;
+        transform: scale(0.82);
+        box-shadow: 0 0 0 5px rgba(220, 38, 38, 0);
+      }
+    }
+
+    .brand-live {
+      color: var(--live-red);
+      display: inline-flex;
+      align-items: center;
+      animation: liveTextPulse 2.1s ease-in-out infinite;
+    }
+
+    .live-beacon {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--live-red);
+      display: inline-block;
+      margin-left: 6px;
+      align-self: center;
+      animation: liveBeaconPulse 2.1s ease-in-out infinite;
+    }
+
+    .brand-sub {
       color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 4px;
     }
 
-    /* Cultural & Almanac Grid */
+    .day-switcher-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .active-date-label {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .day-toggle {
+      display: inline-flex;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 3px;
+    }
+
+    .day-toggle button {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 6px 16px;
+      border-radius: 7px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .day-toggle button.active {
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    .day-toggle button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
     .grid-3 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 980px) {
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .day-switcher-wrap { align-items: flex-start; }
     }
 
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
     }
 
-    .card h3 {
-      font-size: 0.96rem;
-      margin-bottom: 10px;
+    .card-kicker {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: var(--accent);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+      line-height: 1.25;
     }
 
     .item-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 14px;
     }
 
     .item-list li {
+      padding-bottom: 13px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
-      font-size: 0.88rem;
     }
 
     .item-list li:last-child {
-      border-bottom: none;
       padding-bottom: 0;
+      border-bottom: none;
     }
 
-    .bday-name {
+    .badge {
+      display: inline-block;
+      font-size: 0.72rem;
       font-weight: 700;
-      color: var(--text);
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-bottom: 4px;
     }
 
-    .bday-year {
+    .badge.gold {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .item-heading {
+      font-weight: 600;
+      font-size: 0.96rem;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .item-heading:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .item-desc {
+      font-size: 0.85rem;
       color: var(--text-muted);
-      font-size: 0.8rem;
-      margin-left: 4px;
     }
 
     .bday-trivia {
-      margin-top: 3px;
+      margin-top: 6px;
       font-size: 0.81rem;
-      color: var(--text-muted);
-      line-height: 1.4;
+      line-height: 1.42;
+      color: var(--text);
+      background: var(--surface-alt);
+      padding: 6px 9px;
+      border-radius: 7px;
+      border-left: 2.5px solid var(--gold);
     }
 
-    /* 4-Source Global News Wire */
-    .news-grid {
+    .wire-section {
+      margin-bottom: 30px;
+    }
+
+    .wire-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .wire-header h2 {
+      font-size: 1.75rem;
+    }
+
+    .wire-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .wire-tab {
+      padding: 6px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .wire-tab.active {
+      background: var(--text);
+      color: var(--surface);
+      border-color: var(--text);
+    }
+
+    .wire-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 1060px) {
+      .wire-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 620px) {
+      .wire-grid { grid-template-columns: 1fr; }
     }
 
     .source-col {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
     }
 
     .source-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .source-name {
-      font-weight: 800;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      font-weight: 700;
       font-size: 0.92rem;
     }
 
-    .source-count {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      background: var(--surface-alt);
-      padding: 2px 8px;
-      border-radius: 999px;
+    .source-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 7px;
     }
 
-    .headline-item {
-      font-size: 0.86rem;
-      line-height: 1.42;
+    .news-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .headline-item a:hover {
+    .news-list li {
+      padding-bottom: 11px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .news-list li:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .news-link {
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.38;
+      display: block;
+    }
+
+    .news-link:hover {
       color: var(--accent);
       text-decoration: underline;
     }
 
-    .headline-time {
-      display: block;
-      font-size: 0.74rem;
+    .news-time {
+      font-size: 0.75rem;
       color: var(--text-muted);
-      margin-top: 2px;
-    }
-
-    /* Lexicon & Trivia */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 14px;
+      margin-top: 4px;
+      display: block;
     }
 
     .word-term {
-      font-size: 1.2rem;
-      font-weight: 800;
-      margin-bottom: 4px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.15;
     }
 
-    .word-pos {
-      font-size: 0.8rem;
-      color: var(--accent);
+    .word-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 4px 0 12px;
+    }
+
+    .word-def {
+      font-size: 0.98rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .word-ex {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-style: italic;
+      padding-left: 12px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .quote-box {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .quote-text {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.4;
       margin-bottom: 8px;
     }
 
-    .trivia-options {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .trivia-btn {
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 8px 10px;
-      border-radius: 9px;
-      font-size: 0.82rem;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .trivia-btn:hover {
-      border-color: var(--accent);
-    }
-
-    .trivia-feedback {
-      margin-top: 10px;
-      font-size: 0.84rem;
+    .quote-author {
+      font-size: 0.85rem;
       font-weight: 600;
-    }
-
-    /* Legal Footer & GDPR Modal */
-    .footer-legal {
-      margin-top: 40px;
-      padding-top: 22px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      font-size: 0.82rem;
       color: var(--text-muted);
     }
 
-    .footer-top-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
+    .streak-pill {
+      background: var(--gold-soft);
+      color: var(--gold);
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
     }
 
-    .legal-links {
+    .trivia-q {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .trivia-options {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .trivia-opt {
+      text-align: left;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .trivia-opt:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .trivia-opt.correct {
+      background: var(--green-soft);
+      border-color: var(--green);
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .trivia-opt.wrong {
+      background: var(--red-soft);
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .trivia-feedback {
+      margin-top: 12px;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    .briefing-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .briefing-copy h3 {
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+
+    .briefing-copy p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .briefing-form {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      align-items: center;
+      flex: 1;
+      max-width: 460px;
     }
 
-    .legal-btn {
-      background: var(--surface);
+    .briefing-form input {
+      flex: 1;
+      min-width: 210px;
+      padding: 11px 14px;
+      border-radius: 10px;
       border: 1px solid var(--border);
+      background: var(--bg);
       color: var(--text);
-      padding: 5px 11px;
-      border-radius: 8px;
-      font-size: 0.78rem;
+      font-size: 0.92rem;
+    }
+
+    .briefing-form button {
+      padding: 11px 20px;
+      border-radius: 10px;
+      border: none;
+      background: var(--accent);
+      color: #ffffff;
       font-weight: 600;
+      font-size: 0.92rem;
       cursor: pointer;
-      transition: border-color 0.15s;
     }
 
-    .legal-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .footer-note {
-      font-size: 0.76rem;
-      line-height: 1.5;
-      opacity: 0.85;
+    .briefing-status {
+      width: 100%;
+      font-size: 0.85rem;
+      color: var(--green);
+      font-weight: 600;
+      display: none;
     }
 
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(2, 6, 23, 0.72);
+      background: rgba(0, 0, 0, 0.5);
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 16px;
+      padding: 20px;
       z-index: 100;
     }
 
-    .modal-backdrop.open {
-      display: flex;
-    }
+    .modal-backdrop.open { display: flex; }
 
     .modal {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 20px;
       width: 100%;
-    }
-
-    .legal-modal {
-      max-width: 620px;
-      max-height: 82vh;
-      overflow-y: auto;
+      max-width: 440px;
+      padding: 22px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
     }
 
     .modal-top {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       margin-bottom: 14px;
     }
 
-    .legal-body {
-      font-size: 0.88rem;
-      line-height: 1.6;
-      color: var(--text-muted);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .legal-body h4 {
+    .modal input {
+      width: 100%;
+      padding: 10px 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
       color: var(--text);
       font-size: 0.95rem;
-      margin-top: 6px;
+      margin-bottom: 12px;
     }
 
-    .consent-row {
+    .preset-cities {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 12px;
-      background: var(--surface-alt);
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .preset-chip {
+      padding: 5px 10px;
+      border-radius: 999px;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      background: var(--surface-alt);
       color: var(--text);
+      font-size: 0.8rem;
       font-weight: 500;
+      cursor: pointer;
+    }
+
+    .preset-chip:hover { border-color: var(--accent); }
+
+    .city-results {
+      list-style: none;
+      max-height: 200px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .city-results button {
+      width: 100%;
+      text-align: left;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+
+    .city-results button:hover { border-color: var(--accent); }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
     }
   </style>
 </head>
 <body>
-  <main class="container">
-    <header class="topbar">
-      <div class="brand-wrap">
-        <div>
-          <div class="brand-title">
-            <span>DayPulse</span>
-            <span class="brand-live">
-              <span class="live-dot" aria-hidden="true"></span>
-              <span>.live</span>
-            </span>
-          </div>
-          <div class="date-sub" id="currentDateLabel">Loading today's almanac...</div>
-        </div>
+  <div class="utility-bar">
+    <div class="utility-inner">
+      <div class="utility-metrics">
+        <button class="city-btn" id="openCityModal" title="Switch city">
+          <span>📍</span>
+          <span id="cityName">Detecting city...</span>
+          <span style="opacity:0.6">▾</span>
+        </button>
+        <span class="metric-pill" id="weatherPill">
+          <span id="weatherIcon">🌤️</span>
+          <strong id="weatherTemp">--°</strong>
+          <span id="weatherDesc">Loading weather...</span>
+        </span>
+        <span class="metric-pill">
+          <span>🌇 Sunset</span>
+          <strong id="sunsetTime">--:--</strong>
+        </span>
+        <span class="metric-pill">
+          <span id="moonIcon">🌓</span>
+          <strong id="moonPhase">Moon Phase</strong>
+          <span id="moonIllum"></span>
+        </span>
       </div>
+      <div class="utility-controls">
+        <button class="icon-btn" id="unitToggle" title="Toggle °C / °F">°C</button>
+        <button class="icon-btn" id="themeToggle" title="Toggle dark mode">🌙</button>
+      </div>
+    </div>
+  </div>
 
-      <div class="controls">
-        <input type="text" id="cityInput" class="city-input" placeholder="City (e.g. Bucharest)" aria-label="City for local weather" />
-        <button type="button" class="icon-btn" id="unitToggleBtn">°C</button>
-        <button type="button" class="icon-btn" id="themeToggleBtn">Light Mode</button>
+  <main class="container">
+    <header class="masthead">
+      <div>
+        <h1 class="brand-title">DayPulse<span class="brand-live">.live<span class="live-beacon" aria-hidden="true"></span></span></h1>
+        <p class="brand-sub">Global observances, cultural history, daily wit &amp; four-source world wire.</p>
+      </div>
+      <div class="day-switcher-wrap">
+        <div class="active-date-label" id="activeDateLabel">Loading date...</div>
+        <div class="day-toggle" role="tablist" aria-label="Select day">
+          <button id="btnToday" class="active" role="tab" aria-selected="true">Today</button>
+          <button id="btnTomorrow" role="tab" aria-selected="false">Tomorrow</button>
+        </div>
       </div>
     </header>
 
-    <!-- 1. Cultural Grid & Almanac -->
-    <section class="section" aria-label="Daily Almanac and Birthdays">
-      <div class="section-head">
-        <h2 class="section-title">Daily Cultural Grid &amp; Birthdays</h2>
-        <span class="section-meta" id="weatherSummary">Detecting local weather...</span>
-      </div>
-      <div class="grid-3">
-        <article class="card">
-          <h3>Observances &amp; Holidays</h3>
-          <ul class="item-list" id="holidaysList"></ul>
-        </article>
-        <article class="card">
-          <h3>Notable Birthdays &amp; Trivia</h3>
-          <ul class="item-list" id="birthdaysList"></ul>
-        </article>
-        <article class="card">
-          <h3>This Day in History</h3>
-          <ul class="item-list" id="eventsList"></ul>
-        </article>
-      </div>
+    <section class="grid-3">
+      <article class="card">
+        <div class="card-kicker"><span>Global Calendar</span><span>🌍</span></div>
+        <h2 class="card-title">World &amp; National Observances</h2>
+        <ul class="item-list" id="observancesList">
+          <li><span class="item-desc">Loading observances...</span></li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="card-kicker"><span>On This Day in Sound</span><span>🎵</span></div>
+        <h2 class="card-title">Music History Milestones</h2>
+        <ul class="item-list" id="musicList">
+          <li><span class="item-desc">Loading music history...</span></li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="card-kicker"><span>Notable Figures</span><span>🎂</span></div>
+        <h2 class="card-title">Born on This Date</h2>
+        <ul class="item-list" id="birthdaysList">
+          <li><span class="item-desc">Loading birthdays...</span></li>
+        </ul>
+      </article>
     </section>
 
-    <!-- 2. 4-Source Global News Wire (placed above Lexicon & Trivia) -->
-    <section class="section wire-section" aria-label="4-Source Global News Wire">
-      <div class="section-head">
-        <h2 class="section-title">4-Source Global News Wire</h2>
-        <span class="section-meta">BBC • CNN • Fox News • Al Jazeera (Min. 3 headlines/source)</span>
-      </div>
-      <div class="news-grid" id="newsWireGrid"></div>
-    </section>
-
-    <!-- 3. Word of the Day & Daily Trivia -->
-    <section class="section" aria-label="Word of the Day and Daily Trivia">
-      <div class="section-head">
-        <h2 class="section-title">Daily Lexicon &amp; Trivia</h2>
-        <span class="section-meta" id="triviaStreakLabel">Streak: 0 days</span>
-      </div>
-      <div class="grid-2">
-        <article class="card">
-          <h3>Word of the Day</h3>
-          <div class="word-term" id="wordTerm">Ephemeral</div>
-          <div class="word-pos" id="wordPos">adjective</div>
-          <p id="wordDef">Lasting for a very short time.</p>
-        </article>
-        <article class="card">
-          <h3>Daily Trivia Challenge</h3>
-          <p id="triviaQuestion">Which planet in our solar system has the most confirmed moons?</p>
-          <div class="trivia-options" id="triviaOptions"></div>
-          <div class="trivia-feedback" id="triviaFeedback"></div>
-        </article>
-      </div>
-    </section>
-
-    <!-- 4. Legal & GDPR Footer -->
-    <footer class="footer-legal">
-      <div class="footer-top-row">
-        <span>© <span id="footerYear">2026</span> DayPulse.live — Automated Daily World Almanac &amp; News Wire.</span>
-        <div class="legal-links" role="navigation" aria-label="Legal and Privacy">
-          <button type="button" class="legal-btn" data-legal="privacy">Privacy Policy</button>
-          <button type="button" class="legal-btn" data-legal="gdpr">GDPR &amp; Data Rights</button>
-          <button type="button" class="legal-btn" data-legal="cookies">Cookie &amp; Storage Settings</button>
-          <button type="button" class="legal-btn" data-legal="terms">Terms of Use</button>
-          <button type="button" class="legal-btn" data-legal="disclaimer">Sources &amp; Disclaimer</button>
+    <section class="wire-section" aria-label="Global News Wire">
+      <div class="wire-header">
+        <div>
+          <div class="card-kicker" style="margin-bottom:2px"><span>Live Multi-Perspective Feed</span></div>
+          <h2>4-Source Global News Wire</h2>
+        </div>
+        <div class="wire-tabs" id="wireTabs">
+          <button class="wire-tab active" data-source="all">All 4 Sources</button>
+          <button class="wire-tab" data-source="bbc">BBC News</button>
+          <button class="wire-tab" data-source="cnn">CNN</button>
+          <button class="wire-tab" data-source="fox">Fox News</button>
+          <button class="wire-tab" data-source="aljazeera">Al Jazeera</button>
         </div>
       </div>
-      <div class="footer-top-row">
-        <span class="footer-note">
-          DayPulse.live does not use advertising trackers or sell personal data. City preferences, theme, and trivia streaks are stored locally in your browser.
-        </span>
-        <span id="lastUpdatedLabel">Updated daily at 00:05 UTC</span>
+
+      <div class="wire-grid" id="wireGrid">
+        <div class="source-col" data-col="bbc">
+          <div class="source-header"><span><i class="source-dot" style="background:#b91c1c"></i>BBC News</span><span>UK</span></div>
+          <ul class="news-list" id="news-bbc"><li><span class="news-time">Loading BBC headlines...</span></li></ul>
+        </div>
+        <div class="source-col" data-col="cnn">
+          <div class="source-header"><span><i class="source-dot" style="background:#dc2626"></i>CNN</span><span>US</span></div>
+          <ul class="news-list" id="news-cnn"><li><span class="news-time">Loading CNN headlines...</span></li></ul>
+        </div>
+        <div class="source-col" data-col="fox">
+          <div class="source-header"><span><i class="source-dot" style="background:#1d4ed8"></i>Fox News</span><span>US</span></div>
+          <ul class="news-list" id="news-fox"><li><span class="news-time">Loading Fox News headlines...</span></li></ul>
+        </div>
+        <div class="source-col" data-col="aljazeera">
+          <div class="source-header"><span><i class="source-dot" style="background:#d97706"></i>Al Jazeera</span><span>Global</span></div>
+          <ul class="news-list" id="news-aljazeera"><li><span class="news-time">Loading Al Jazeera headlines...</span></li></ul>
+        </div>
       </div>
+    </section>
+
+    <section class="grid-2">
+      <article class="card">
+        <div class="card-kicker"><span>Lexicon &amp; Reflection</span><span>📖</span></div>
+        <h2 class="card-title">Word &amp; Quote of the Day</h2>
+        <div>
+          <div class="word-term" id="wordTerm">—</div>
+          <div class="word-meta" id="wordMeta"></div>
+          <p class="word-def" id="wordDef"></p>
+          <p class="word-ex" id="wordEx"></p>
+        </div>
+        <div class="quote-box">
+          <blockquote class="quote-text" id="quoteText">“—”</blockquote>
+          <div class="quote-author" id="quoteAuthor"></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-kicker">
+          <span>Daily Brain Teaser</span>
+          <span class="streak-pill" id="streakBadge">🔥 0-day streak</span>
+        </div>
+        <h2 class="card-title" id="triviaCategory">Daily Trivia</h2>
+        <p class="trivia-q" id="triviaQuestion">Loading question...</p>
+        <div class="trivia-options" id="triviaOptions"></div>
+        <p class="trivia-feedback" id="triviaFeedback"></p>
+      </article>
+    </section>
+
+    <section class="briefing-banner" aria-label="Morning Briefing Signup">
+      <div class="briefing-copy">
+        <div class="card-kicker" style="margin-bottom:4px"><span>Free Daily Digest</span></div>
+        <h3>The 7:00 AM Morning Briefing</h3>
+        <p>Get observances, music milestones, word of the day &amp; top headlines in your inbox every morning at 7:00 AM local time.</p>
+      </div>
+      <form class="briefing-form" id="briefingForm">
+        <input type="email" id="briefingEmail" placeholder="you@example.com" required aria-label="Email address" />
+        <button type="submit">Send at 7:00 AM</button>
+        <div class="briefing-status" id="briefingStatus"></div>
+      </form>
+    </section>
+
+    <footer>
+      <span>© <span id="footerYear">2026</span> DayPulse.live — Automated Daily World Almanac &amp; News Wire.</span>
+      <span id="lastUpdatedLabel">Updated daily at 00:05 UTC</span>
     </footer>
   </main>
 
-  <!-- Legal & GDPR Modal -->
-  <div class="modal-backdrop" id="legalModal" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle">
-    <div class="modal legal-modal">
+  <div class="modal-backdrop" id="cityModal" role="dialog" aria-modal="true" aria-labelledby="cityModalTitle">
+    <div class="modal">
       <div class="modal-top">
-        <strong id="legalModalTitle">Legal Information</strong>
-        <button type="button" class="icon-btn" id="closeLegalModal" aria-label="Close modal">✕</button>
+        <strong id="cityModalTitle">Switch City</strong>
+        <button class="icon-btn" id="closeCityModal">✕</button>
       </div>
-      <div class="legal-body" id="legalModalBody"></div>
+      <input type="text" id="citySearchInput" placeholder="Search any city (e.g., New York, Tokyo, London)..." />
+      <div class="preset-cities" id="presetCities">
+        <button type="button" class="preset-chip" data-auto="1">📍 Auto (My IP)</button>
+        <button type="button" class="preset-chip" data-city="New York" data-country="US" data-lat="40.7128" data-lon="-74.0060">New York</button>
+        <button type="button" class="preset-chip" data-city="London" data-country="UK" data-lat="51.5072" data-lon="-0.1276">London</button>
+        <button type="button" class="preset-chip" data-city="Tokyo" data-country="JP" data-lat="35.6762" data-lon="139.6503">Tokyo</button>
+        <button type="button" class="preset-chip" data-city="Sydney" data-country="AU" data-lat="-33.8688" data-lon="151.2093">Sydney</button>
+        <button type="button" class="preset-chip" data-city="Toronto" data-country="CA" data-lat="43.6532" data-lon="-79.3832">Toronto</button>
+        <button type="button" class="preset-chip" data-city="Dubai" data-country="AE" data-lat="25.2048" data-lon="55.2708">Dubai</button>
+      </div>
+      <ul class="city-results" id="cityResults"></ul>
     </div>
   </div>
 
   <script>
-    const FALLBACK_DATA = {
-      holidays: [
-        { title: "World Television Day", detail: "Recognized by the United Nations to celebrate global communications and storytelling." },
-        { title: "International Day of Solidarity", detail: "Highlighting global cooperation and civic engagement." },
-        { title: "National Almanac Observance", detail: "Celebrating daily historical archives and public knowledge." }
-      ],
-      birthdays: [
-        {
-          name: "Voltaire",
-          year: "1694",
-          fact: "Born François-Marie Arouet, he wrote more than 2,000 books and pamphlets during his lifetime."
-        },
-        {
-          name: "Björk",
-          year: "1965",
-          fact: "Released her first album in Iceland at age 11 and later blended electronic, classical, and vocal art."
-        },
-        {
-          name: "Ken Griffey Jr.",
-          year: "1969",
-          fact: "Hit 630 career home runs and played alongside his father, Ken Griffey Sr., in Major League Baseball."
-        }
-      ],
-      events: [
-        { year: "1783", text: "Pilâtre de Rozier and Marquis d'Arlandes made the first untethered manned hot air balloon flight in Paris." },
-        { year: "1969", text: "ARPANET established its first permanent link between UCLA and Stanford Research Institute." },
-        { year: "1998", text: "The Zarya module launched as the first component of the International Space Station." }
-      ],
-      word: {
-        term: "Perspicacious",
-        pos: "adjective",
-        definition: "Having a ready insight into and understanding of things; shrewd and discerning."
-      },
-      trivia: {
-        question: "Which planet in our solar system has the most confirmed moons?",
-        options: ["Mars", "Saturn", "Venus", "Mercury"],
-        answer: "Saturn"
-      },
-      fallbackNews: {
-        bbc: [
-          { source: "BBC News", title: "Global markets steady ahead of central bank policy updates", link: "https://www.bbc.com/news", pubDate: "Today" },
-          { source: "BBC News", title: "Researchers unveil new climate modeling dataset for coastal cities", link: "https://www.bbc.com/news", pubDate: "Today" },
-          { source: "BBC News", title: "Cultural institutions expand digital access to historic archives", link: "https://www.bbc.com/news", pubDate: "Today" }
-        ],
-        cnn: [
-          { source: "CNN", title: "International diplomats hold talks on regional trade corridors", link: "https://www.cnn.com", pubDate: "Today" },
-          { source: "CNN", title: "Next-generation space telescope prepares new deep-field survey", link: "https://www.cnn.com", pubDate: "Today" },
-          { source: "CNN", title: "Urban transit authorities test low-emission commuter fleets", link: "https://www.cnn.com", pubDate: "Today" }
-        ],
-        fox: [
-          { source: "Fox News", title: "Energy analysts track winter supply shifts across major hubs", link: "https://www.foxnews.com", pubDate: "Today" },
-          { source: "Fox News", title: "Technology firms announce expanded domestic manufacturing plants", link: "https://www.foxnews.com", pubDate: "Today" },
-          { source: "Fox News", title: "Port logistics operators report faster container turnaround times", link: "https://www.foxnews.com", pubDate: "Today" }
-        ],
-        aljazeera: [
-          { source: "Al Jazeera", title: "Humanitarian agencies scale up winter relief logistics", link: "https://www.aljazeera.com", pubDate: "Today" },
-          { source: "Al Jazeera", title: "Renewable grid projects expand solar capacity in arid regions", link: "https://www.aljazeera.com", pubDate: "Today" },
-          { source: "Al Jazeera", title: "Maritime researchers map deep-ocean biodiversity corridors", link: "https://www.aljazeera.com", pubDate: "Today" }
-        ]
-      }
+    const WEATHER_CODES = {
+      0: ["Clear sky", "☀️"],
+      1: ["Mainly clear", "🌤️"],
+      2: ["Partly cloudy", "⛅"],
+      3: ["Overcast", "☁️"],
+      45: ["Fog", "🌫️"],
+      48: ["Rime fog", "🌫️"],
+      51: ["Light drizzle", "🌦️"],
+      53: ["Drizzle", "🌦️"],
+      55: ["Dense drizzle", "🌧️"],
+      61: ["Light rain", "🌧️"],
+      63: ["Rain", "🌧️"],
+      65: ["Heavy rain", "⛈️"],
+      71: ["Light snow", "🌨️"],
+      73: ["Snow", "❄️"],
+      75: ["Heavy snow", "❄️"],
+      80: ["Rain showers", "🌦️"],
+      81: ["Showers", "🌧️"],
+      82: ["Heavy showers", "⛈️"],
+      95: ["Thunderstorm", "⛈️"],
+      96: ["Thunderstorm & hail", "⛈️"],
+      99: ["Severe storm", "⛈️"],
     };
 
-    const SOURCE_META = [
-      { key: "bbc", label: "BBC News" },
-      { key: "cnn", label: "CNN" },
-      { key: "fox", label: "Fox News" },
-      { key: "aljazeera", label: "Al Jazeera" }
-    ];
+    const state = {
+      dailyData: null,
+      activeDay: "today",
+      unit: localStorage.getItem("dp_unit") || "C",
+      theme: localStorage.getItem("dp_theme") || "light",
+      liveWeather: null,
+    };
 
-    let unit = localStorage.getItem("dp_unit") || "C";
-    let theme = localStorage.getItem("dp_theme") || "dark";
+    function escapeHtml(str = "") {
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
+    }
 
     function applyTheme() {
-      document.body.classList.toggle("light", theme === "light");
-      document.getElementById("themeToggleBtn").textContent = theme === "light" ? "Dark Mode" : "Light Mode";
+      document.documentElement.setAttribute("data-theme", state.theme);
+      document.getElementById("themeToggle").textContent = state.theme === "dark" ? "☀️" : "🌙";
     }
 
-    function applyUnitLabel() {
-      document.getElementById("unitToggleBtn").textContent = unit === "C" ? "°C" : "°F";
+    function applyUnit() {
+      document.getElementById("unitToggle").textContent = "°" + state.unit;
+      renderWeatherBar();
     }
 
-    function formatTemp(celsius) {
-      if (unit === "F") {
-        return `${Math.round((celsius * 9) / 5 + 32)}°F`;
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      state.theme = state.theme === "dark" ? "light" : "dark";
+      localStorage.setItem("dp_theme", state.theme);
+      applyTheme();
+    });
+
+    document.getElementById("unitToggle").addEventListener("click", () => {
+      state.unit = state.unit === "C" ? "F" : "C";
+      localStorage.setItem("dp_unit", state.unit);
+      applyUnit();
+    });
+
+    function renderWeatherBar() {
+      if (!state.liveWeather) return;
+      const { location, weather, moon } = state.liveWeather;
+      document.getElementById("cityName").textContent = location.country
+        ? `${location.city}, ${location.country}`
+        : location.city;
+
+      if (weather) {
+        const [desc, defaultIcon] = WEATHER_CODES[weather.code] || ["Fair", "🌤️"];
+        const icon = weather.code === 0 && !weather.isDay ? "🌙" : defaultIcon;
+        const temp = state.unit === "F" ? `${weather.tempF}°F` : `${weather.tempC}°C`;
+        document.getElementById("weatherIcon").textContent = icon;
+        document.getElementById("weatherTemp").textContent = temp;
+        document.getElementById("weatherDesc").textContent = desc;
+        document.getElementById("sunsetTime").textContent = weather.sunset || "--:--";
       }
-      return `${Math.round(celsius)}°C`;
+
+      if (moon) {
+        document.getElementById("moonIcon").textContent = moon.icon;
+        document.getElementById("moonPhase").textContent = moon.name;
+        document.getElementById("moonIllum").textContent = `(${moon.illumination}%)`;
+      }
     }
 
-    function renderAlmanac(data) {
-      const now = new Date();
-      document.getElementById("currentDateLabel").textContent = now.toLocaleDateString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
-      document.getElementById("footerYear").textContent = String(now.getFullYear());
-
-      const holidaysEl = document.getElementById("holidaysList");
-      holidaysEl.innerHTML = (data.holidays || []).slice(0, 4).map((h) => `
-        <li>
-          <div class="bday-name">${h.title}</div>
-          <div class="bday-trivia">${h.detail || ""}</div>
-        </li>
-      `).join("");
-
-      const bdaysEl = document.getElementById("birthdaysList");
-      bdaysEl.innerHTML = (data.birthdays || []).slice(0, 4).map((b) => `
-        <li>
-          <div>
-            <span class="bday-name">${b.name}</span>
-            ${b.year ? `<span class="bday-year">(${b.year})</span>` : ""}
-          </div>
-          <p class="bday-trivia">${b.fact || "Notable historical figure born on this date."}</p>
-        </li>
-      `).join("");
-
-      const eventsEl = document.getElementById("eventsList");
-      eventsEl.innerHTML = (data.events || []).slice(0, 4).map((ev) => `
-        <li>
-          <span class="bday-name">${ev.year}:</span> ${ev.text}
-        </li>
-      `).join("");
-
-      if (data.word) {
-        document.getElementById("wordTerm").textContent = data.word.term;
-        document.getElementById("wordPos").textContent = data.word.pos || "word";
-        document.getElementById("wordDef").textContent = data.word.definition;
+    async function loadLiveEdge(customLoc = null) {
+      let query = "";
+      if (customLoc) {
+        query = `?city=${encodeURIComponent(customLoc.city)}&country=${encodeURIComponent(
+          customLoc.country || ""
+        )}&lat=${customLoc.lat}&lon=${customLoc.lon}`;
       }
 
-      if (data.trivia) {
-        document.getElementById("triviaQuestion").textContent = data.trivia.question;
-        const optionsEl = document.getElementById("triviaOptions");
-        const feedbackEl = document.getElementById("triviaFeedback");
-        feedbackEl.textContent = "";
-        optionsEl.innerHTML = (data.trivia.options || []).map((opt) => `
-          <button type="button" class="trivia-btn" data-opt="${opt}">${opt}</button>
-        `).join("");
-
-        optionsEl.querySelectorAll(".trivia-btn").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const chosen = btn.getAttribute("data-opt");
-            if (chosen === data.trivia.answer) {
-              feedbackEl.style.color = "var(--green)";
-              feedbackEl.textContent = `✓ Correct! (${data.trivia.answer})`;
-              const streak = Number(localStorage.getItem("dp_trivia_streak") || "0") + 1;
-              localStorage.setItem("dp_trivia_streak", String(streak));
-              document.getElementById("triviaStreakLabel").textContent = `Streak: ${streak} days`;
-            } else {
-              feedbackEl.style.color = "#ef4444";
-              feedbackEl.textContent = `Not quite — answer: ${data.trivia.answer}`;
-            }
-          });
-        });
+      try {
+        const res = await fetch(`/api/live${query}`);
+        if (!res.ok) throw new Error("Edge API unavailable");
+        const data = await res.json();
+        state.liveWeather = data;
+        renderWeatherBar();
+        if (data.news) renderNewsWire(data.news);
+      } catch (_) {
+        const lat = customLoc?.lat ?? 51.5072;
+        const lon = customLoc?.lon ?? -0.1276;
+        const city = customLoc?.city ?? "London";
+        const country = customLoc?.country ?? "UK";
+        try {
+          const wRes = await fetch(
+            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,is_day&daily=sunset&timezone=auto&forecast_days=1`
+          );
+          const wJson = await wRes.json();
+          state.liveWeather = {
+            location: { city, country, lat, lon },
+            weather: {
+              tempC: Math.round(wJson.current.temperature_2m),
+              tempF: Math.round((wJson.current.temperature_2m * 9) / 5 + 32),
+              code: wJson.current.weather_code,
+              isDay: wJson.current.is_day === 1,
+              sunset: wJson.daily?.sunset?.[0]?.split("T")[1] || "--:--",
+            },
+            moon: { icon: "🌓", name: "Lunar Cycle", illumination: 50 },
+          };
+          renderWeatherBar();
+        } catch (__) {
+          document.getElementById("cityName").textContent = city;
+          document.getElementById("weatherDesc").textContent = "Weather unavailable";
+        }
       }
+    }
+
+    function renderDayBundle() {
+      if (!state.dailyData) return;
+      const bundle = state.dailyData[state.activeDay] || state.dailyData.today;
+      if (!bundle) return;
+
+      document.getElementById("activeDateLabel").textContent = bundle.displayDate || bundle.isoDate;
+
+      const obsEl = document.getElementById("observancesList");
+      obsEl.innerHTML = (bundle.observances || [])
+        .map(
+          (o) => `
+          <li>
+            <span class="badge">${escapeHtml(o.region || "Global")}</span>
+            <a class="item-heading" href="${escapeHtml(o.url || "#")}" target="_blank" rel="noopener">${escapeHtml(o.title)}</a>
+            <p class="item-desc">${escapeHtml(o.description || "")}</p>
+          </li>`
+        )
+        .join("");
+
+      const musicEl = document.getElementById("musicList");
+      musicEl.innerHTML = (bundle.music || [])
+        .map(
+          (m) => `
+          <li>
+            ${m.year ? `<span class="badge gold">${escapeHtml(String(m.year))}</span>` : ""}
+            <a class="item-heading" href="${escapeHtml(m.url || "#")}" target="_blank" rel="noopener">${escapeHtml(m.title)}</a>
+            <p class="item-desc">${escapeHtml(m.detail || "")}</p>
+          </li>`
+        )
+        .join("");
+
+      const bdayEl = document.getElementById("birthdaysList");
+      bdayEl.innerHTML = (bundle.birthdays || [])
+        .map(
+          (b) => `
+          <li>
+            ${b.year ? `<span class="badge">Born ${escapeHtml(String(b.year))}</span>` : ""}
+            <a class="item-heading" href="${escapeHtml(b.url || "#")}" target="_blank" rel="noopener">${escapeHtml(b.name)}</a>
+            <p class="item-desc">${escapeHtml(b.role || "")}</p>
+            ${b.fact ? `<p class="bday-trivia">✦ ${escapeHtml(b.fact)}</p>` : ""}
+          </li>`
+        )
+        .join("");
+
+      if (bundle.word) {
+        document.getElementById("wordTerm").textContent = bundle.word.word;
+        document.getElementById("wordMeta").textContent = [bundle.word.phonetic, bundle.word.pos].filter(Boolean).join(" · ");
+        document.getElementById("wordDef").textContent = bundle.word.definition;
+        document.getElementById("wordEx").textContent = bundle.word.example ? `“${bundle.word.example}”` : "";
+      }
+
+      if (bundle.quote) {
+        document.getElementById("quoteText").textContent = `“${bundle.quote.text}”`;
+        document.getElementById("quoteAuthor").textContent = bundle.quote.role
+          ? `— ${bundle.quote.author}, ${bundle.quote.role}`
+          : `— ${bundle.quote.author}`;
+      }
+
+      renderTrivia(bundle);
+    }
+
+    function renderTrivia(bundle) {
+      const trivia = bundle.trivia;
+      if (!trivia) return;
 
       const streak = Number(localStorage.getItem("dp_trivia_streak") || "0");
-      document.getElementById("triviaStreakLabel").textContent = `Streak: ${streak} days`;
-    }
+      document.getElementById("streakBadge").textContent = `🔥 ${streak}-day streak`;
+      document.getElementById("triviaCategory").textContent = `Daily Trivia · ${trivia.category || "General"}`;
+      document.getElementById("triviaQuestion").textContent = trivia.question;
 
-    function normalizeSourceItems(items, fallbackItems, sourceLabel) {
-      const clean = Array.isArray(items) ? items.filter((x) => x && x.title) : [];
-      const pool = Array.isArray(fallbackItems) ? fallbackItems : [];
-      const merged = [...clean];
+      const answeredKey = `dp_trivia_ans_${bundle.isoDate}`;
+      const savedAnswer = localStorage.getItem(answeredKey);
 
-      for (const fb of pool) {
-        if (merged.length >= 3) break;
-        if (!merged.some((m) => m.title === fb.title)) {
-          merged.push({
-            source: fb.source || sourceLabel,
-            title: fb.title,
-            link: fb.link || "#",
-            pubDate: fb.pubDate || "Today"
-          });
+      const optionsEl = document.getElementById("triviaOptions");
+      const feedbackEl = document.getElementById("triviaFeedback");
+      feedbackEl.style.display = "none";
+
+      optionsEl.innerHTML = (trivia.options || [])
+        .map((opt) => `<button type="button" class="trivia-opt" data-opt="${escapeHtml(opt)}">${escapeHtml(opt)}</button>`)
+        .join("");
+
+      const buttons = Array.from(optionsEl.querySelectorAll(".trivia-opt"));
+
+      function lockAnswer(chosen, isNewAttempt) {
+        const isCorrect = chosen === trivia.answer;
+        buttons.forEach((btn) => {
+          btn.disabled = true;
+          const val = btn.getAttribute("data-opt");
+          if (val === trivia.answer) btn.classList.add("correct");
+          else if (val === chosen) btn.classList.add("wrong");
+        });
+
+        if (isNewAttempt) {
+          localStorage.setItem(answeredKey, chosen);
+          if (state.activeDay === "today") {
+            const lastDate = localStorage.getItem("dp_trivia_last_date");
+            if (lastDate !== bundle.isoDate) {
+              const newStreak = isCorrect ? streak + 1 : 0;
+              localStorage.setItem("dp_trivia_streak", String(newStreak));
+              localStorage.setItem("dp_trivia_last_date", bundle.isoDate);
+              document.getElementById("streakBadge").textContent = `🔥 ${newStreak}-day streak`;
+            }
+          }
         }
+
+        feedbackEl.textContent = `${isCorrect ? "✅ Spot on! " : "❌ Not quite. "}${trivia.explanation || ""}`;
+        feedbackEl.style.display = "block";
       }
 
-      while (merged.length < 3) {
-        const idx = merged.length + 1;
-        merged.push({
-          source: sourceLabel,
-          title: `${sourceLabel} daily dispatch #${idx}`,
-          link: "#",
-          pubDate: "Today"
+      if (savedAnswer) {
+        lockAnswer(savedAnswer, false);
+      } else {
+        buttons.forEach((btn) => {
+          btn.addEventListener("click", () => lockAnswer(btn.getAttribute("data-opt"), true));
         });
       }
-
-      return merged.slice(0, 5);
     }
 
-    function renderNewsWire(liveNews, fallbackNews) {
-      const grid = document.getElementById("newsWireGrid");
-      const fbMap = { ...FALLBACK_DATA.fallbackNews, ...(fallbackNews || {}) };
-
-      grid.innerHTML = SOURCE_META.map((src) => {
-        const rawList = liveNews && Array.isArray(liveNews[src.key]) ? liveNews[src.key] : [];
-        const items = normalizeSourceItems(rawList, fbMap[src.key], src.label);
-
-        return `
-          <article class="source-col">
-            <div class="source-header">
-              <span class="source-name">${src.label}</span>
-              <span class="source-count">${items.length} stories</span>
-            </div>
-            ${items.map((item) => `
-              <div class="headline-item">
-                <a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a>
-                <span class="headline-time">${item.pubDate || "Today"}</span>
-              </div>
-            `).join("")}
-          </article>
-        `;
-      }).join("");
+    function formatRelativeTime(pubDateStr) {
+      if (!pubDateStr) return "Latest wire";
+      const parsed = Date.parse(pubDateStr);
+      if (Number.isNaN(parsed)) return pubDateStr;
+      const diffMins = Math.max(1, Math.round((Date.now() - parsed) / 60000));
+      if (diffMins < 60) return `${diffMins}m ago`;
+      const diffHrs = Math.round(diffMins / 60);
+      if (diffHrs < 24) return `${diffHrs}h ago`;
+      return new Date(parsed).toLocaleDateString("en-US", { month: "short", day: "numeric" });
     }
 
-    async function loadWeather(cityQuery) {
-      const city = (cityQuery || localStorage.getItem("dp_custom_city") || "Bucharest").trim();
-      document.getElementById("cityInput").value = city;
-      try {
-        const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);
-        const geoJson = await geoRes.json();
-        const place = geoJson.results && geoJson.results[0];
-        if (!place) {
-          document.getElementById("weatherSummary").textContent = `${city} • Weather unavailable`;
-          return;
-        }
-        const wRes = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${place.latitude}&longitude=${place.longitude}&current=temperature_2m,wind_speed_10m`
-        );
-        const wJson = await wRes.json();
-        const tempC = wJson.current?.temperature_2m;
-        const wind = wJson.current?.wind_speed_10m;
-        document.getElementById("weatherSummary").textContent =
-          `${place.name}, ${place.country_code || ""} • ${typeof tempC === "number" ? formatTemp(tempC) : "N/A"} • Wind ${wind ?? "-"} km/h`;
-      } catch {
-        document.getElementById("weatherSummary").textContent = `${city} • Offline weather fallback`;
-      }
-    }
-
-    async function loadDailyContent() {
-      let payload = FALLBACK_DATA;
-      let liveNews = FALLBACK_DATA.fallbackNews;
-
-      try {
-        const res = await fetch("/api/live", { cache: "no-store" });
-        if (res.ok) {
-          const json = await res.json();
-          payload = { ...FALLBACK_DATA, ...(json.almanac || json || {}) };
-          liveNews = json.news || json.fallbackNews || FALLBACK_DATA.fallbackNews;
-        }
-      } catch {
-        try {
-          const localRes = await fetch("/data/today.json", { cache: "no-store" });
-          if (localRes.ok) {
-            const json = await localRes.json();
-            payload = { ...FALLBACK_DATA, ...json };
-            liveNews = json.news || json.fallbackNews || FALLBACK_DATA.fallbackNews;
+    function renderNewsWire(newsObj) {
+      if (!newsObj) return;
+      const fallbacks = state.dailyData?.fallbackNews || {};
+      ["bbc", "cnn", "fox", "aljazeera"].forEach((key) => {
+        const listEl = document.getElementById(`news-${key}`);
+        let items = Array.isArray(newsObj[key]) ? [...newsObj[key]] : [];
+        if (items.length < 3 && Array.isArray(fallbacks[key])) {
+          for (const fb of fallbacks[key]) {
+            if (items.length >= 3) break;
+            if (!items.some((x) => x.title === fb.title)) {
+              items.push(fb);
+            }
           }
-        } catch {
-          // Use FALLBACK_DATA
         }
-      }
-
-      renderAlmanac(payload);
-      renderNewsWire(liveNews, payload.fallbackNews);
+        if (items.length === 0) return;
+        listEl.innerHTML = items
+          .map(
+            (item) => `
+            <li>
+              <a class="news-link" href="${escapeHtml(item.link)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a>
+              <span class="news-time">${escapeHtml(formatRelativeTime(item.pubDate))}</span>
+            </li>`
+          )
+          .join("");
+      });
     }
 
-    const LEGAL_DOCS = {
-      privacy: {
-        title: "Privacy Policy",
-        html: `
-          <p><strong>Effective Date:</strong> November 2026</p>
-          <h4>1. Data We Process</h4>
-          <p>DayPulse.live operates on a privacy-by-design model. We do not require user accounts, do not collect names or email addresses, and do not run third-party behavioral ad trackers.</p>
-          <h4>2. IP-Based Weather Lookup</h4>
-          <p>When you visit DayPulse.live, your approximate city and coordinates are inferred at the network edge (Cloudflare) solely to display local weather and sunset times. Coordinates are sent to Open-Meteo without personal identifiers.</p>
-          <h4>3. Local Browser Storage</h4>
-          <p>Your display preferences (theme, °C/°F unit, selected city, and daily trivia streak) are saved strictly on your own device via <code>localStorage</code> and are never transmitted to a user database.</p>
-        `
-      },
-      gdpr: {
-        title: "GDPR Compliance & European Data Rights",
-        html: `
-          <p>Under the EU General Data Protection Regulation (GDPR), users in the European Economic Area (EEA) and UK have full rights over their personal data, including the right of access, rectification, erasure ("right to be forgotten"), and restriction of processing.</p>
-          <h4>Lawful Basis (Art. 6 GDPR)</h4>
-          <p>Transient network routing data (IP geolocation header) is processed under Legitimate Interest (Art. 6(1)(f)) strictly to deliver requested local weather information in real time and is not retained in user profiles.</p>
-          <h4>Exercise Your Right to Erasure</h4>
-          <p>You can immediately erase all data stored by DayPulse.live on your device using the button below:</p>
-          <button type="button" class="icon-btn" id="eraseLocalDataBtn" style="align-self:flex-start; margin-top:4px;">🗑️ Clear All Local Browser Data</button>
-          <p id="eraseStatus" style="color:var(--green); font-weight:600; display:none;">✓ All local preferences and trivia history have been deleted.</p>
-        `
-      },
-      cookies: {
-        title: "Cookie & Local Storage Settings",
-        html: `
-          <p>DayPulse.live uses <strong>zero tracking cookies</strong>. We only use essential browser storage (<code>localStorage</code>) so the interface remembers your choices between visits:</p>
-          <div class="consent-row"><span>Essential UI Storage (Theme, °C/°F, City, Trivia)</span><strong>Active (Local Only)</strong></div>
-          <div class="consent-row"><span>Advertising &amp; Cross-Site Tracking Cookies</span><strong>Disabled (None Used)</strong></div>
-          <p>Because no non-essential or third-party tracking cookies are set, no intrusive tracking consent banner is required under the ePrivacy Directive. You may clear local storage at any time.</p>
-        `
-      },
-      terms: {
-        title: "Terms of Use",
-        html: `
-          <h4>1. Informational Purpose</h4>
-          <p>DayPulse.live provides daily cultural observances, historical milestones, trivia, weather estimates, and news headlines for general informational and educational purposes.</p>
-          <h4>2. External Links &amp; Trademarks</h4>
-          <p>Headlines and historical references link directly to third-party publishers (such as BBC News, CNN, Fox News, Al Jazeera, and Wikipedia). All trademarks, headlines, and articles remain the property of their respective owners.</p>
-          <h4>3. Availability</h4>
-          <p>The service is provided "as is" without warranties of uninterrupted uptime or real-time accuracy.</p>
-        `
-      },
-      disclaimer: {
-        title: "Sources & Editorial Disclaimer",
-        html: `
-          <p><strong>News Wire:</strong> Headlines are aggregated automatically from public RSS feeds of BBC News, CNN, Fox News, and Al Jazeera to offer multiple international perspectives. DayPulse.live does not alter or endorse third-party reporting.</p>
-          <p><strong>Almanac &amp; Weather:</strong> Historical dates and observances are sourced from Wikimedia Foundation feeds; weather and astronomical data are provided by Open-Meteo.</p>
-        `
-      }
-    };
-
-    const legalModal = document.getElementById("legalModal");
-    const legalModalTitle = document.getElementById("legalModalTitle");
-    const legalModalBody = document.getElementById("legalModalBody");
-
-    document.querySelectorAll(".legal-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const doc = LEGAL_DOCS[btn.getAttribute("data-legal")];
-        if (!doc) return;
-        legalModalTitle.textContent = doc.title;
-        legalModalBody.innerHTML = doc.html;
-        legalModal.classList.add("open");
-
-        const eraseBtn = document.getElementById("eraseLocalDataBtn");
-        if (eraseBtn) {
-          eraseBtn.addEventListener("click", () => {
-            ["dp_unit", "dp_theme", "dp_custom_city", "dp_trivia_streak", "dp_trivia_last_date", "dp_briefing_email"].forEach((k) =>
-              localStorage.removeItem(k)
-            );
-            document.getElementById("eraseStatus").style.display = "block";
-          });
-        }
+    document.getElementById("wireTabs").addEventListener("click", (e) => {
+      const btn = e.target.closest(".wire-tab");
+      if (!btn) return;
+      document.querySelectorAll(".wire-tab").forEach((t) => t.classList.remove("active"));
+      btn.classList.add("active");
+      const src = btn.getAttribute("data-source");
+      document.querySelectorAll(".source-col").forEach((col) => {
+        col.style.display = src === "all" || col.getAttribute("data-col") === src ? "block" : "none";
       });
     });
 
-    document.getElementById("closeLegalModal").addEventListener("click", () => {
-      legalModal.classList.remove("open");
+    const btnToday = document.getElementById("btnToday");
+    const btnTomorrow = document.getElementById("btnTomorrow");
+
+    btnToday.addEventListener("click", () => {
+      state.activeDay = "today";
+      btnToday.classList.add("active");
+      btnTomorrow.classList.remove("active");
+      renderDayBundle();
     });
 
-    legalModal.addEventListener("click", (e
+    btnTomorrow.addEventListener("click", () => {
+      if (!state.dailyData?.tomorrow) return;
+      state.activeDay = "tomorrow";
+      btnTomorrow.classList.add("active");
+      btnToday.classList.remove("active");
+      renderDayBundle();
+    });
+
+    document.getElementById("briefingForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("briefingEmail").value.trim();
+      if (!email) return;
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "local time";
+      localStorage.setItem("dp_briefing_email", email);
+      const statusEl = document.getElementById("briefingStatus");
+      statusEl.textContent = `✓ Subscribed ${email} for the 7:00 AM briefing (${tz}).`;
+      statusEl.style.display = "block";
+      document.getElementById("briefingEmail").value = "";
+    });
+
+    const cityModal = document.getElementById("cityModal");
+    const citySearchInput = document.getElementById("citySearchInput");
+    const cityResults = document.getElementById("cityResults");
+
+    document.getElementById("openCityModal").addEventListener("click", () => {
+      cityModal.classList.add("open");
+      citySearchInput.focus();
+    });
+
+    document.getElementById("closeCityModal").addEventListener("click", () => {
+      cityModal.classList.remove("open");
+    });
+
+    cityModal.addEventListener("click", (e) => {
+      if (e.target === cityModal) cityModal.classList.remove("open");
+    });
+
+    document.getElementById("presetCities").addEventListener("click", (e) => {
+      const chip = e.target.closest(".preset-chip");
+      if (!chip) return;
+      if (chip.getAttribute("data-auto") === "1") {
+        localStorage.removeItem("dp_custom_city");
+        cityModal.classList.remove("open");
+        loadLiveEdge(null);
+        return;
+      }
+      const loc = {
+        city: chip.getAttribute("data-city"),
+        country: chip.getAttribute("data-country"),
+        lat: parseFloat(chip.getAttribute("data-lat")),
+        lon: parseFloat(chip.getAttribute("data-lon")),
+      };
+      localStorage.setItem("dp_custom_city", JSON.stringify(loc));
+      cityModal.classList.remove("open");
+      loadLiveEdge(loc);
+    });
+
+    let searchTimer = null;
+    citySearchInput.addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      const q = citySearchInput.value.trim();
+      if (q.length < 2) {
+        cityResults.innerHTML = "";
+        return;
+      }
+      searchTimer = setTimeout(async () => {
+        try {
+          const res = await fetch(`/api/live?search=${encodeURIComponent(q)}`);
+          const data = await res.json();
+          cityResults.innerHTML = (data.results || [])
+            .map(
+              (r) => `
+              <li>
+                <button type="button" data-city="${escapeHtml(r.name)}" data-country="${escapeHtml(r.country)}" data-lat="${r.lat}" data-lon="${r.lon}">
+                  ${escapeHtml(r.name)}${r.admin1 ? `, ${escapeHtml(r.admin1)}` : ""} — ${escapeHtml(r.country)}
+                </button>
+              </li>`
+            )
+            .join("");
+        } catch (_) {
+          cityResults.innerHTML = "";
+        }
+      }, 280);
+    });
+
+    cityResults.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      const loc = {
+        city: btn.getAttribute("data-city"),
+        country: btn.getAttribute("data-country"),
+        lat: parseFloat(btn.getAttribute("data-lat")),
+        lon: parseFloat(btn.getAttribute("data-lon")),
+      };
+      localStorage.setItem("dp_custom_city", JSON.stringify(loc));
+      cityModal.classList.remove("open");
+      loadLiveEdge(loc);
+    });
+
+    async function init() {
+      applyTheme();
+      applyUnit();
+      document.getElementById("footerYear").textContent = String(new Date().getFullYear());
+
+      const savedCityRaw = localStorage.getItem("dp_custom_city");
+      const savedCity = savedCityRaw ? JSON.parse(savedCityRaw) : null;
+      loadLiveEdge(savedCity);
+
+      try {
+        const res = await fetch("/data/today.json?v=" + Math.floor(Date.now() / 300000));
+        state.dailyData = await res.json();
+        btnTomorrow.disabled = !state.dailyData.tomorrow;
+        if (state.dailyData.updatedAt) {
+          document.getElementById("lastUpdatedLabel").textContent =
+            "Edition updated: " + new Date(state.dailyData.updatedAt).toUTCString();
+        }
+        renderDayBundle();
+        if (state.dailyData.fallbackNews && !state.liveWeather?.news) {
+          renderNewsWire(state.dailyData.fallbackNews);
+        } else if (state.liveWeather?.news) {
+          renderNewsWire(state.liveWeather.news);
+        }
+      } catch (err) {
+        document.getElementById("activeDateLabel").textContent = new Date().toDateString();
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
