@@ -1,203 +1,219 @@
 {
-  "updatedAt": "2026-11-21T06:00:00.000Z",
+  "updatedAt": "2026-11-21T00:05:00.000Z",
   "today": {
-    "dateLabel": "November 21, 2026",
-    "monthSlug": "november",
-    "day": 21,
+    "isoDate": "2026-11-21",
+    "displayDate": "Saturday, November 21, 2026",
     "observances": [
       {
         "title": "World Television Day",
-        "category": "global",
-        "source": "United Nations",
-        "description": "Proclaimed by the UN General Assembly to recognize television's impact on decision-making and global cultural exchange."
+        "region": "United Nations",
+        "description": "Proclaimed by the UN General Assembly to recognize television's impact on global communication, journalism, and cultural exchange.",
+        "url": "https://en.wikipedia.org/wiki/World_Television_Day"
       },
       {
         "title": "World Hello Day",
-        "category": "global",
-        "source": "Days Of The Year",
-        "description": "Encourages people worldwide to greet at least ten people to demonstrate the importance of personal communication for peace."
+        "region": "International",
+        "description": "Encourages people around the world to greet at least ten people to demonstrate the role of personal communication in preserving peace.",
+        "url": "https://en.wikipedia.org/wiki/World_Hello_Day"
       },
       {
-        "title": "National Gingerbread Cookie Day",
-        "category": "fun",
-        "source": "Days Of The Year",
-        "description": "Celebrates the spiced molasses classic with roots stretching back to medieval European baking."
+        "title": "World Fisheries Day",
+        "region": "International",
+        "description": "Highlights the critical importance of sustainable fisheries and healthy marine ecosystems for global food security.",
+        "url": "https://en.wikipedia.org/wiki/World_Fisheries_Day"
+      },
+      {
+        "title": "Armed Forces Day (Bangladesh)",
+        "region": "Bangladesh",
+        "description": "Commemorates the day in 1971 when the army, navy, and air force launched a coordinated offensive during the Liberation War.",
+        "url": "https://en.wikipedia.org/wiki/Armed_Forces_Day_(Bangladesh)"
       }
     ],
     "music": [
       {
-        "year": "1987",
-        "title": "Billy Idol Hits #1 with 'Mony Mony'",
-        "summary": "Billy Idol's live cover of Tommy James and the Shondells' 'Mony Mony' reached #1 on the US Billboard Hot 100.",
-        "source": "This Day in Music"
+        "year": 1975,
+        "title": "Queen released their fourth studio album 'A Night at the Opera', featuring the six-minute suite 'Bohemian Rhapsody'.",
+        "detail": "Landmark British rock album",
+        "url": "https://en.wikipedia.org/wiki/A_Night_at_the_Opera_(Queen_album)"
       },
       {
-        "year": "1995",
-        "title": "The Beatles Release 'Anthology 1'",
-        "summary": "The archival double album featuring rare studio outtakes and 'Free as a Bird' debuted to massive worldwide sales.",
-        "source": "This Day in Music"
+        "year": 1934,
+        "title": "A 17-year-old Ella Fitzgerald made her professional singing debut at the Apollo Theater's Amateur Night in Harlem.",
+        "detail": "Jazz vocal milestone",
+        "url": "https://en.wikipedia.org/wiki/Ella_Fitzgerald"
       },
       {
-        "year": "2011",
-        "title": "Rihanna's 'We Found Love' Tops Global Charts",
-        "summary": "Produced by Calvin Harris, the single led both the US Billboard Hot 100 and the UK Singles Chart.",
-        "source": "Wikimedia"
+        "year": 1983,
+        "title": "Michael Jackson's 14-minute music video for 'Thriller', directed by John Landis, premiered in Los Angeles.",
+        "detail": "Pop music video landmark",
+        "url": "https://en.wikipedia.org/wiki/Thriller_(music_video)"
       }
     ],
-    "births": [
+    "birthdays": [
       {
-        "year": "1965",
-        "name": "Bj\u00f6rk",
-        "role": "Icelandic Singer, Songwriter & Composer",
-        "bio": "Pioneering avant-garde artist acclaimed for genre-defining albums including 'Homogenic' and 'Vespertine'."
+        "name": "Björk",
+        "year": 1965,
+        "role": "Icelandic singer, songwriter, composer & producer",
+        "url": "https://en.wikipedia.org/wiki/Bj%C3%B6rk"
       },
       {
-        "year": "1694",
         "name": "Voltaire",
-        "role": "French Enlightenment Writer & Philosopher",
-        "bio": "Influential writer and advocate of free expression, best known for his satirical novella 'Candide'."
+        "year": 1694,
+        "role": "French Enlightenment writer, historian & philosopher",
+        "url": "https://en.wikipedia.org/wiki/Voltaire"
       },
       {
-        "year": "1945",
-        "name": "Goldie Hawn",
-        "role": "American Actress & Producer",
-        "bio": "Academy Award-winning comedic actress celebrated for 'Cactus Flower' and 'Private Benjamin'."
+        "name": "René Magritte",
+        "year": 1898,
+        "role": "Belgian surrealist painter known for 'The Son of Man'",
+        "url": "https://en.wikipedia.org/wiki/Ren%C3%A9_Magritte"
       }
     ],
-    "wordOfTheDay": {
+    "word": {
       "word": "Apricity",
-      "phonetic": "/\u0259\u02c8pr\u026as.\u026a.ti/",
-      "pos": "noun \u2022 literary",
-      "definition": "The warmth of the sun in winter.",
-      "example": "She paused on the porch to enjoy the brief afternoon apricity."
+      "phonetic": "/əˈprɪs.ɪ.ti/",
+      "pos": "noun",
+      "definition": "The warmth of the sun felt on a crisp winter's day.",
+      "example": "Stepping onto the morning terrace, she paused to enjoy the sudden apricity."
     },
     "quote": {
-      "text": "Judge a man by his questions rather than by his answers.",
-      "author": "Voltaire"
+      "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+      "author": "Will Durant",
+      "role": "Historian & Philosopher"
     },
     "trivia": {
-      "question": "Which Icelandic artist born on November 21 released the acclaimed 1997 album 'Homogenic'?",
+      "category": "Science & Space",
+      "question": "Which planet in our Solar System rotates in the opposite direction to most other planets, causing the Sun to rise in the west?",
       "options": [
-        "Sigur R\u00f3s",
-        "Bj\u00f6rk",
-        "Emil\u00edana Torrini"
+        "Venus",
+        "Mars",
+        "Neptune",
+        "Mercury"
       ],
-      "answerIndex": 1
+      "answer": "Venus",
+      "explanation": "Venus has a retrograde rotation, spinning clockwise on its axis once every 243 Earth days."
     }
   },
   "tomorrow": {
-    "dateLabel": "November 22, 2026",
-    "monthSlug": "november",
-    "day": 22,
+    "isoDate": "2026-11-22",
+    "displayDate": "Sunday, November 22, 2026",
     "observances": [
       {
-        "title": "St. Cecilia's Day",
-        "category": "global",
-        "source": "Cultural Calendar",
-        "description": "Traditional feast day honoring Saint Cecilia, patroness of musicians and composers."
+        "title": "Feast of Saint Cecilia (Patroness of Musicians)",
+        "region": "International / Cultural",
+        "description": "Traditionally celebrated worldwide with concerts, choral festivals, and tributes to musicians and composers.",
+        "url": "https://en.wikipedia.org/wiki/Saint_Cecilia"
       },
       {
-        "title": "Go For a Ride Day",
-        "category": "fun",
-        "source": "Days Of The Year",
-        "description": "Encourages taking a scenic drive, bike ride, or train trip purely for the joy of exploration."
+        "title": "Lebanese Independence Day",
+        "region": "Lebanon",
+        "description": "Commemorates the end of the French Mandate in 1943 and the recognition of Lebanon as an independent republic.",
+        "url": "https://en.wikipedia.org/wiki/Independence_Day_(Lebanon)"
       },
       {
-        "title": "National Cranberry Relish Day",
-        "category": "fun",
-        "source": "Days Of The Year",
-        "description": "Celebrates the vibrant, tart harvest relish ahead of late-autumn gatherings."
+        "title": "Alphabet Day",
+        "region": "Albania",
+        "description": "Marks the 1908 Congress of Manastir, which standardized the modern Latin-based Albanian alphabet.",
+        "url": "https://en.wikipedia.org/wiki/Alphabet_Day"
       }
     ],
     "music": [
       {
-        "year": "1968",
-        "title": "The Beatles Release 'The White Album'",
-        "summary": "The double LP featuring 'While My Guitar Gently Weeps' and 'Blackbird' arrived in UK record shops.",
-        "source": "This Day in Music"
+        "year": 1968,
+        "title": "The Beatles released their self-titled double album, universally known as 'The White Album', in the United Kingdom.",
+        "detail": "Iconic double LP release",
+        "url": "https://en.wikipedia.org/wiki/The_Beatles_(album)"
       },
       {
-        "year": "1963",
-        "title": "The Beatles Release 'With the Beatles'",
-        "summary": "The group's second studio album became the first million-selling album in UK chart history.",
-        "source": "This Day in Music"
+        "year": 1928,
+        "title": "Maurice Ravel's orchestral masterpiece 'Boléro' premiered at the Paris Opéra.",
+        "detail": "Classical orchestral premiere",
+        "url": "https://en.wikipedia.org/wiki/Bol%C3%A9ro"
       },
       {
-        "year": "1986",
-        "title": "Bon Jovi's 'You Give Love a Bad Name' Reaches #1",
-        "summary": "The lead single from 'Slippery When Wet' earned Bon Jovi their first Billboard Hot 100 #1 hit.",
-        "source": "Wikimedia"
+        "year": 1963,
+        "title": "The Beatles released their second UK studio album 'With the Beatles', featuring 'All My Loving'.",
+        "detail": "British Invasion milestone",
+        "url": "https://en.wikipedia.org/wiki/With_the_Beatles"
       }
     ],
-    "births": [
+    "birthdays": [
       {
-        "year": "1943",
-        "name": "Billie Jean King",
-        "role": "American Tennis Champion & Advocate",
-        "bio": "Winner of 39 Grand Slam titles and a trailblazer for equal pay and opportunity in sports."
-      },
-      {
-        "year": "1984",
         "name": "Scarlett Johansson",
-        "role": "American Actress",
-        "bio": "Two-time Oscar nominee acclaimed for 'Lost in Translation', 'Marriage Story', and 'Jojo Rabbit'."
+        "year": 1984,
+        "role": "American actress & singer",
+        "url": "https://en.wikipedia.org/wiki/Scarlett_Johansson"
       },
       {
-        "year": "1819",
-        "name": "George Eliot (Mary Ann Evans)",
-        "role": "English Novelist",
-        "bio": "Author of 'Middlemarch', widely considered one of the greatest novels in English literature."
+        "name": "Billie Jean King",
+        "year": 1943,
+        "role": "American tennis champion & gender equality pioneer",
+        "url": "https://en.wikipedia.org/wiki/Billie_Jean_King"
+      },
+      {
+        "name": "George Eliot",
+        "year": 1819,
+        "role": "English Victorian novelist ('Middlemarch')",
+        "url": "https://en.wikipedia.org/wiki/George_Eliot"
       }
     ],
-    "wordOfTheDay": {
+    "word": {
       "word": "Sonder",
-      "phonetic": "/\u02c8s\u0252n.d\u0259r/",
-      "pos": "noun \u2022 modern coinage",
+      "phonetic": "/ˈsɒn.dər/",
+      "pos": "noun",
       "definition": "The realization that each random passerby is living a life as vivid and complex as your own.",
-      "example": "Watching commuters cross the terminal filled him with a quiet sense of sonder."
+      "example": "Watching travelers cross the station concourse brought on a quiet wave of sonder."
     },
     "quote": {
-      "text": "Champions keep playing until they get it right.",
-      "author": "Billie Jean King"
+      "text": "It is never too late to be what you might have been.",
+      "author": "George Eliot",
+      "role": "Novelist & Poet"
     },
     "trivia": {
-      "question": "Which 1968 Beatles double album was released in a plain white sleeve on November 22?",
+      "category": "Geography",
+      "question": "Which country has the longest coastline in the world?",
       "options": [
-        "Abbey Road",
-        "The Beatles (The White Album)",
-        "Let It Be"
+        "Canada",
+        "Indonesia",
+        "Russia",
+        "Australia"
       ],
-      "answerIndex": 1
+      "answer": "Canada",
+      "explanation": "Canada's coastline stretches over 202,080 kilometers across the Atlantic, Pacific, and Arctic oceans."
     }
   },
-  "headlines": [
-    {
-      "id": "bbc",
-      "name": "BBC News",
-      "lens": "UK / Europe Lens",
-      "title": "Global leaders gather for climate and energy transition talks in Geneva",
-      "link": "https://www.bbc.com/news/world"
-    },
-    {
-      "id": "cnn",
-      "name": "CNN",
-      "lens": "US Mainstream",
-      "title": "Central banks signal cautious approach to interest rates amid shifting inflation data",
-      "link": "https://edition.cnn.com/world"
-    },
-    {
-      "id": "fox",
-      "name": "Fox News",
-      "lens": "US Conservative",
-      "title": "US lawmakers debate border security and federal spending package ahead of deadline",
-      "link": "https://www.foxnews.com/world"
-    },
-    {
-      "id": "aljazeera",
-      "name": "Al Jazeera",
-      "lens": "Middle East / Global South",
-      "title": "Humanitarian agencies call for expanded aid corridors across regional conflict zones",
-      "link": "https://www.aljazeera.com"
-    }
-  ]
+  "fallbackNews": {
+    "bbc": [
+      {
+        "source": "BBC News",
+        "title": "Global leaders convene for autumn climate and energy transition summit",
+        "link": "https://www.bbc.com/news/world",
+        "pubDate": "Sat, 21 Nov 2026 18:00:00 GMT"
+      }
+    ],
+    "cnn": [
+      {
+        "source": "CNN",
+        "title": "International markets weigh year-end central bank outlook and trade flows",
+        "link": "https://www.cnn.com/world",
+        "pubDate": "Sat, 21 Nov 2026 18:00:00 GMT"
+      }
+    ],
+    "fox": [
+      {
+        "source": "Fox News",
+        "title": "Global aviation and tech sectors unveil new winter logistics upgrades",
+        "link": "https://www.foxnews.com/world",
+        "pubDate": "Sat, 21 Nov 2026 18:00:00 GMT"
+      }
+    ],
+    "aljazeera": [
+      {
+        "source": "Al Jazeera",
+        "title": "Diplomatic talks continue across regional hubs on maritime trade security",
+        "link": "https://www.aljazeera.com/news/",
+        "pubDate": "Sat, 21 Nov 2026 18:00:00 GMT"
+      }
+    ]
+  }
 }
