@@ -1,0 +1,2 @@
+/data/today.json
+  Cache-Control: public, max-age=300, must-revalidate

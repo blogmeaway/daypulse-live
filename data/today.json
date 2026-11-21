@@ -1,0 +1,203 @@
+{
+  "updatedAt": "2026-11-21T06:00:00.000Z",
+  "today": {
+    "dateLabel": "November 21, 2026",
+    "monthSlug": "november",
+    "day": 21,
+    "observances": [
+      {
+        "title": "World Television Day",
+        "category": "global",
+        "source": "United Nations",
+        "description": "Proclaimed by the UN General Assembly to recognize television's impact on decision-making and global cultural exchange."
+      },
+      {
+        "title": "World Hello Day",
+        "category": "global",
+        "source": "Days Of The Year",
+        "description": "Encourages people worldwide to greet at least ten people to demonstrate the importance of personal communication for peace."
+      },
+      {
+        "title": "National Gingerbread Cookie Day",
+        "category": "fun",
+        "source": "Days Of The Year",
+        "description": "Celebrates the spiced molasses classic with roots stretching back to medieval European baking."
+      }
+    ],
+    "music": [
+      {
+        "year": "1987",
+        "title": "Billy Idol Hits #1 with 'Mony Mony'",
+        "summary": "Billy Idol's live cover of Tommy James and the Shondells' 'Mony Mony' reached #1 on the US Billboard Hot 100.",
+        "source": "This Day in Music"
+      },
+      {
+        "year": "1995",
+        "title": "The Beatles Release 'Anthology 1'",
+        "summary": "The archival double album featuring rare studio outtakes and 'Free as a Bird' debuted to massive worldwide sales.",
+        "source": "This Day in Music"
+      },
+      {
+        "year": "2011",
+        "title": "Rihanna's 'We Found Love' Tops Global Charts",
+        "summary": "Produced by Calvin Harris, the single led both the US Billboard Hot 100 and the UK Singles Chart.",
+        "source": "Wikimedia"
+      }
+    ],
+    "births": [
+      {
+        "year": "1965",
+        "name": "Bj\u00f6rk",
+        "role": "Icelandic Singer, Songwriter & Composer",
+        "bio": "Pioneering avant-garde artist acclaimed for genre-defining albums including 'Homogenic' and 'Vespertine'."
+      },
+      {
+        "year": "1694",
+        "name": "Voltaire",
+        "role": "French Enlightenment Writer & Philosopher",
+        "bio": "Influential writer and advocate of free expression, best known for his satirical novella 'Candide'."
+      },
+      {
+        "year": "1945",
+        "name": "Goldie Hawn",
+        "role": "American Actress & Producer",
+        "bio": "Academy Award-winning comedic actress celebrated for 'Cactus Flower' and 'Private Benjamin'."
+      }
+    ],
+    "wordOfTheDay": {
+      "word": "Apricity",
+      "phonetic": "/\u0259\u02c8pr\u026as.\u026a.ti/",
+      "pos": "noun \u2022 literary",
+      "definition": "The warmth of the sun in winter.",
+      "example": "She paused on the porch to enjoy the brief afternoon apricity."
+    },
+    "quote": {
+      "text": "Judge a man by his questions rather than by his answers.",
+      "author": "Voltaire"
+    },
+    "trivia": {
+      "question": "Which Icelandic artist born on November 21 released the acclaimed 1997 album 'Homogenic'?",
+      "options": [
+        "Sigur R\u00f3s",
+        "Bj\u00f6rk",
+        "Emil\u00edana Torrini"
+      ],
+      "answerIndex": 1
+    }
+  },
+  "tomorrow": {
+    "dateLabel": "November 22, 2026",
+    "monthSlug": "november",
+    "day": 22,
+    "observances": [
+      {
+        "title": "St. Cecilia's Day",
+        "category": "global",
+        "source": "Cultural Calendar",
+        "description": "Traditional feast day honoring Saint Cecilia, patroness of musicians and composers."
+      },
+      {
+        "title": "Go For a Ride Day",
+        "category": "fun",
+        "source": "Days Of The Year",
+        "description": "Encourages taking a scenic drive, bike ride, or train trip purely for the joy of exploration."
+      },
+      {
+        "title": "National Cranberry Relish Day",
+        "category": "fun",
+        "source": "Days Of The Year",
+        "description": "Celebrates the vibrant, tart harvest relish ahead of late-autumn gatherings."
+      }
+    ],
+    "music": [
+      {
+        "year": "1968",
+        "title": "The Beatles Release 'The White Album'",
+        "summary": "The double LP featuring 'While My Guitar Gently Weeps' and 'Blackbird' arrived in UK record shops.",
+        "source": "This Day in Music"
+      },
+      {
+        "year": "1963",
+        "title": "The Beatles Release 'With the Beatles'",
+        "summary": "The group's second studio album became the first million-selling album in UK chart history.",
+        "source": "This Day in Music"
+      },
+      {
+        "year": "1986",
+        "title": "Bon Jovi's 'You Give Love a Bad Name' Reaches #1",
+        "summary": "The lead single from 'Slippery When Wet' earned Bon Jovi their first Billboard Hot 100 #1 hit.",
+        "source": "Wikimedia"
+      }
+    ],
+    "births": [
+      {
+        "year": "1943",
+        "name": "Billie Jean King",
+        "role": "American Tennis Champion & Advocate",
+        "bio": "Winner of 39 Grand Slam titles and a trailblazer for equal pay and opportunity in sports."
+      },
+      {
+        "year": "1984",
+        "name": "Scarlett Johansson",
+        "role": "American Actress",
+        "bio": "Two-time Oscar nominee acclaimed for 'Lost in Translation', 'Marriage Story', and 'Jojo Rabbit'."
+      },
+      {
+        "year": "1819",
+        "name": "George Eliot (Mary Ann Evans)",
+        "role": "English Novelist",
+        "bio": "Author of 'Middlemarch', widely considered one of the greatest novels in English literature."
+      }
+    ],
+    "wordOfTheDay": {
+      "word": "Sonder",
+      "phonetic": "/\u02c8s\u0252n.d\u0259r/",
+      "pos": "noun \u2022 modern coinage",
+      "definition": "The realization that each random passerby is living a life as vivid and complex as your own.",
+      "example": "Watching commuters cross the terminal filled him with a quiet sense of sonder."
+    },
+    "quote": {
+      "text": "Champions keep playing until they get it right.",
+      "author": "Billie Jean King"
+    },
+    "trivia": {
+      "question": "Which 1968 Beatles double album was released in a plain white sleeve on November 22?",
+      "options": [
+        "Abbey Road",
+        "The Beatles (The White Album)",
+        "Let It Be"
+      ],
+      "answerIndex": 1
+    }
+  },
+  "headlines": [
+    {
+      "id": "bbc",
+      "name": "BBC News",
+      "lens": "UK / Europe Lens",
+      "title": "Global leaders gather for climate and energy transition talks in Geneva",
+      "link": "https://www.bbc.com/news/world"
+    },
+    {
+      "id": "cnn",
+      "name": "CNN",
+      "lens": "US Mainstream",
+      "title": "Central banks signal cautious approach to interest rates amid shifting inflation data",
+      "link": "https://edition.cnn.com/world"
+    },
+    {
+      "id": "fox",
+      "name": "Fox News",
+      "lens": "US Conservative",
+      "title": "US lawmakers debate border security and federal spending package ahead of deadline",
+      "link": "https://www.foxnews.com/world"
+    },
+    {
+      "id": "aljazeera",
+      "name": "Al Jazeera",
+      "lens": "Middle East / Global South",
+      "title": "Humanitarian agencies call for expanded aid corridors across regional conflict zones",
+      "link": "https://www.aljazeera.com"
+    }
+  ]
+}
