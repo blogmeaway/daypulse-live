@@ -391,4 +391,973 @@
       gap: 6px;
     }
 
-    .wire
+    .wire-tab {
+      padding: 6px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .wire-tab.active {
+      background: var(--text);
+      color: var(--surface);
+      border-color: var(--text);
+    }
+
+    .wire-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 1060px) {
+      .wire-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 620px) {
+      .wire-grid { grid-template-columns: 1fr; }
+    }
+
+    .source-col {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .source-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .source-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 7px;
+    }
+
+    .news-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .news-list li {
+      padding-bottom: 11px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .news-list li:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .news-link {
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.38;
+      display: block;
+    }
+
+    .news-link:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .news-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      display: block;
+    }
+
+    .word-term {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .word-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 4px 0 12px;
+    }
+
+    .word-def {
+      font-size: 0.98rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .word-ex {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-style: italic;
+      padding-left: 12px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .quote-box {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .quote-text {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .quote-author {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .streak-pill {
+      background: var(--gold-soft);
+      color: var(--gold);
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .trivia-q {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .trivia-options {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .trivia-opt {
+      text-align: left;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .trivia-opt:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .trivia-opt.correct {
+      background: var(--green-soft);
+      border-color: var(--green);
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .trivia-opt.wrong {
+      background: var(--red-soft);
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .trivia-feedback {
+      margin-top: 12px;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    .briefing-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .briefing-copy h3 {
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+
+    .briefing-copy p {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .briefing-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      flex: 1;
+      max-width: 460px;
+    }
+
+    .briefing-form input {
+      flex: 1;
+      min-width: 210px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.92rem;
+    }
+
+    .briefing-form button {
+      padding: 11px 20px;
+      border-radius: 10px;
+      border: none;
+      background: var(--accent);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+    }
+
+    .briefing-status {
+      width: 100%;
+      font-size: 0.85rem;
+      color: var(--green);
+      font-weight: 600;
+      display: none;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 440px;
+      padding: 22px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .modal input {
+      width: 100%;
+      padding: 10px 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .preset-cities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+
+    .preset-chip {
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .preset-chip:hover { border-color: var(--accent); }
+
+    .city-results {
+      list-style: none;
+      max-height: 200px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .city-results button {
+      width: 100%;
+      text-align: left;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+      color: var(--text);
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+
+    .city-results button:hover { border-color: var(--accent); }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="utility-bar">
+    <div class="utility-inner">
+      <div class="utility-metrics">
+        <button class="city-btn" id="openCityModal" title="Switch city">
+          <span>📍</span>
+          <span id="cityName">Detecting city...</span>
+          <span style="opacity:0.6">▾</span>
+        </button>
+        <span class="metric-pill" id="weatherPill">
+          <span id="weatherIcon">🌤️</span>
+          <strong id="weatherTemp">--°</strong>
+          <span id="weatherDesc">Loading weather...</span>
+        </span>
+        <span class="metric-pill">
+          <span>🌇 Sunset</span>
+          <strong id="sunsetTime">--:--</strong>
+        </span>
+        <span class="metric-pill">
+          <span id="moonIcon">🌓</span>
+          <strong id="moonPhase">Moon Phase</strong>
+          <span id="moonIllum"></span>
+        </span>
+      </div>
+      <div class="utility-controls">
+        <button class="icon-btn" id="unitToggle" title="Toggle °C / °F">°C</button>
+        <button class="icon-btn" id="themeToggle" title="Toggle dark mode">🌙</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <header class="masthead">
+      <div>
+        <h1 class="brand-title">DayPulse<span class="brand-live">.live<span class="live-beacon" aria-hidden="true"></span></span></h1>
+        <p class="brand-sub">Global observances, cultural history, daily wit &amp; four-source world wire.</p>
+      </div>
+      <div class="day-switcher-wrap">
+        <div class="active-date-label" id="activeDateLabel">Loading date...</div>
+        <div class="day-toggle" role="tablist" aria-label="Select day">
+          <button id="btnToday" class="active" role="tab" aria-selected="true">Today</button>
+          <button id="btnTomorrow" role="tab" aria-selected="false">Tomorrow</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid-3">
+      <article class="card">
+        <div class="card-kicker"><span>Global Calendar</span><span>🌍</span></div>
+        <h2 class="card-title">World &amp; National Observances</h2>
+        <ul class="item-list" id="observancesList">
+          <li><span class="item-desc">Loading observances...</span></li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="card-kicker"><span>On This Day in Sound</span><span>🎵</span></div>
+        <h2 class="card-title">Music History Milestones</h2>
+        <ul class="item-list" id="musicList">
+          <li><span class="item-desc">Loading music history...</span></li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="card-kicker"><span>Notable Figures</span><span>🎂</span></div>
+        <h2 class="card-title">Born on This Date</h2>
+        <ul class="item-list" id="birthdaysList">
+          <li><span class="item-desc">Loading birthdays...</span></li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="wire-section" aria-label="Global News Wire">
+      <div class="wire-header">
+        <div>
+          <div class="card-kicker" style="margin-bottom:2px"><span>Live Multi-Perspective Feed</span></div>
+          <h2>4-Source Global News Wire</h2>
+        </div>
+        <div class="wire-tabs" id="wireTabs">
+          <button class="wire-tab active" data-source="all">All 4 Sources</button>
+          <button class="wire-tab" data-source="bbc">BBC News</button>
+          <button class="wire-tab" data-source="cnn">CNN</button>
+          <button class="wire-tab" data-source="fox">Fox News</button>
+          <button class="wire-tab" data-source="aljazeera">Al Jazeera</button>
+        </div>
+      </div>
+
+      <div class="wire-grid" id="wireGrid">
+        <div class="source-col" data-col="bbc">
+          <div class="source-header"><span><i class="source-dot" style="background:#b91c1c"></i>BBC News</span><span>UK</span></div>
+          <ul class="news-list" id="news-bbc"><li><span class="news-time">Loading BBC headlines...</span></li></ul>
+        </div>
+        <div class="source-col" data-col="cnn">
+          <div class="source-header"><span><i class="source-dot" style="background:#dc2626"></i>CNN</span><span>US</span></div>
+          <ul class="news-list" id="news-cnn"><li><span class="news-time">Loading CNN headlines...</span></li></ul>
+        </div>
+        <div class="source-col" data-col="fox">
+          <div class="source-header"><span><i class="source-dot" style="background:#1d4ed8"></i>Fox News</span><span>US</span></div>
+          <ul class="news-list" id="news-fox"><li><span class="news-time">Loading Fox News headlines...</span></li></ul>
+        </div>
+        <div class="source-col" data-col="aljazeera">
+          <div class="source-header"><span><i class="source-dot" style="background:#d97706"></i>Al Jazeera</span><span>Global</span></div>
+          <ul class="news-list" id="news-aljazeera"><li><span class="news-time">Loading Al Jazeera headlines...</span></li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <article class="card">
+        <div class="card-kicker"><span>Lexicon &amp; Reflection</span><span>📖</span></div>
+        <h2 class="card-title">Word &amp; Quote of the Day</h2>
+        <div>
+          <div class="word-term" id="wordTerm">—</div>
+          <div class="word-meta" id="wordMeta"></div>
+          <p class="word-def" id="wordDef"></p>
+          <p class="word-ex" id="wordEx"></p>
+        </div>
+        <div class="quote-box">
+          <blockquote class="quote-text" id="quoteText">“—”</blockquote>
+          <div class="quote-author" id="quoteAuthor"></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-kicker">
+          <span>Daily Brain Teaser</span>
+          <span class="streak-pill" id="streakBadge">🔥 0-day streak</span>
+        </div>
+        <h2 class="card-title" id="triviaCategory">Daily Trivia</h2>
+        <p class="trivia-q" id="triviaQuestion">Loading question...</p>
+        <div class="trivia-options" id="triviaOptions"></div>
+        <p class="trivia-feedback" id="triviaFeedback"></p>
+      </article>
+    </section>
+
+    <section class="briefing-banner" aria-label="Morning Briefing Signup">
+      <div class="briefing-copy">
+        <div class="card-kicker" style="margin-bottom:4px"><span>Free Daily Digest</span></div>
+        <h3>The 7:00 AM Morning Briefing</h3>
+        <p>Get observances, music milestones, word of the day &amp; top headlines in your inbox every morning at 7:00 AM local time.</p>
+      </div>
+      <form class="briefing-form" id="briefingForm">
+        <input type="email" id="briefingEmail" placeholder="you@example.com" required aria-label="Email address" />
+        <button type="submit">Send at 7:00 AM</button>
+        <div class="briefing-status" id="briefingStatus"></div>
+      </form>
+    </section>
+
+    <footer>
+      <span>© <span id="footerYear">2026</span> DayPulse.live — Automated Daily World Almanac &amp; News Wire.</span>
+      <span id="lastUpdatedLabel">Updated daily at 00:05 UTC</span>
+    </footer>
+  </main>
+
+  <div class="modal-backdrop" id="cityModal" role="dialog" aria-modal="true" aria-labelledby="cityModalTitle">
+    <div class="modal">
+      <div class="modal-top">
+        <strong id="cityModalTitle">Switch City</strong>
+        <button class="icon-btn" id="closeCityModal">✕</button>
+      </div>
+      <input type="text" id="citySearchInput" placeholder="Search any city (e.g., New York, Tokyo, London)..." />
+      <div class="preset-cities" id="presetCities">
+        <button type="button" class="preset-chip" data-auto="1">📍 Auto (My IP)</button>
+        <button type="button" class="preset-chip" data-city="New York" data-country="US" data-lat="40.7128" data-lon="-74.0060">New York</button>
+        <button type="button" class="preset-chip" data-city="London" data-country="UK" data-lat="51.5072" data-lon="-0.1276">London</button>
+        <button type="button" class="preset-chip" data-city="Tokyo" data-country="JP" data-lat="35.6762" data-lon="139.6503">Tokyo</button>
+        <button type="button" class="preset-chip" data-city="Sydney" data-country="AU" data-lat="-33.8688" data-lon="151.2093">Sydney</button>
+        <button type="button" class="preset-chip" data-city="Toronto" data-country="CA" data-lat="43.6532" data-lon="-79.3832">Toronto</button>
+        <button type="button" class="preset-chip" data-city="Dubai" data-country="AE" data-lat="25.2048" data-lon="55.2708">Dubai</button>
+      </div>
+      <ul class="city-results" id="cityResults"></ul>
+    </div>
+  </div>
+
+  <script>
+    const WEATHER_CODES = {
+      0: ["Clear sky", "☀️"],
+      1: ["Mainly clear", "🌤️"],
+      2: ["Partly cloudy", "⛅"],
+      3: ["Overcast", "☁️"],
+      45: ["Fog", "🌫️"],
+      48: ["Rime fog", "🌫️"],
+      51: ["Light drizzle", "🌦️"],
+      53: ["Drizzle", "🌦️"],
+      55: ["Dense drizzle", "🌧️"],
+      61: ["Light rain", "🌧️"],
+      63: ["Rain", "🌧️"],
+      65: ["Heavy rain", "⛈️"],
+      71: ["Light snow", "🌨️"],
+      73: ["Snow", "❄️"],
+      75: ["Heavy snow", "❄️"],
+      80: ["Rain showers", "🌦️"],
+      81: ["Showers", "🌧️"],
+      82: ["Heavy showers", "⛈️"],
+      95: ["Thunderstorm", "⛈️"],
+      96: ["Thunderstorm & hail", "⛈️"],
+      99: ["Severe storm", "⛈️"],
+    };
+
+    const state = {
+      dailyData: null,
+      activeDay: "today",
+      unit: localStorage.getItem("dp_unit") || "C",
+      theme: localStorage.getItem("dp_theme") || "light",
+      liveWeather: null,
+    };
+
+    function escapeHtml(str = "") {
+      const div = document.createElement("div");
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function applyTheme() {
+      document.documentElement.setAttribute("data-theme", state.theme);
+      document.getElementById("themeToggle").textContent = state.theme === "dark" ? "☀️" : "🌙";
+    }
+
+    function applyUnit() {
+      document.getElementById("unitToggle").textContent = "°" + state.unit;
+      renderWeatherBar();
+    }
+
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      state.theme = state.theme === "dark" ? "light" : "dark";
+      localStorage.setItem("dp_theme", state.theme);
+      applyTheme();
+    });
+
+    document.getElementById("unitToggle").addEventListener("click", () => {
+      state.unit = state.unit === "C" ? "F" : "C";
+      localStorage.setItem("dp_unit", state.unit);
+      applyUnit();
+    });
+
+    function renderWeatherBar() {
+      if (!state.liveWeather) return;
+      const { location, weather, moon } = state.liveWeather;
+      document.getElementById("cityName").textContent = location.country
+        ? `${location.city}, ${location.country}`
+        : location.city;
+
+      if (weather) {
+        const [desc, defaultIcon] = WEATHER_CODES[weather.code] || ["Fair", "🌤️"];
+        const icon = weather.code === 0 && !weather.isDay ? "🌙" : defaultIcon;
+        const temp = state.unit === "F" ? `${weather.tempF}°F` : `${weather.tempC}°C`;
+        document.getElementById("weatherIcon").textContent = icon;
+        document.getElementById("weatherTemp").textContent = temp;
+        document.getElementById("weatherDesc").textContent = desc;
+        document.getElementById("sunsetTime").textContent = weather.sunset || "--:--";
+      }
+
+      if (moon) {
+        document.getElementById("moonIcon").textContent = moon.icon;
+        document.getElementById("moonPhase").textContent = moon.name;
+        document.getElementById("moonIllum").textContent = `(${moon.illumination}%)`;
+      }
+    }
+
+    async function loadLiveEdge(customLoc = null) {
+      let query = "";
+      if (customLoc) {
+        query = `?city=${encodeURIComponent(customLoc.city)}&country=${encodeURIComponent(
+          customLoc.country || ""
+        )}&lat=${customLoc.lat}&lon=${customLoc.lon}`;
+      }
+
+      try {
+        const res = await fetch(`/api/live${query}`);
+        if (!res.ok) throw new Error("Edge API unavailable");
+        const data = await res.json();
+        state.liveWeather = data;
+        renderWeatherBar();
+        if (data.news) renderNewsWire(data.news);
+      } catch (_) {
+        const lat = customLoc?.lat ?? 51.5072;
+        const lon = customLoc?.lon ?? -0.1276;
+        const city = customLoc?.city ?? "London";
+        const country = customLoc?.country ?? "UK";
+        try {
+          const wRes = await fetch(
+            `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,is_day&daily=sunset&timezone=auto&forecast_days=1`
+          );
+          const wJson = await wRes.json();
+          state.liveWeather = {
+            location: { city, country, lat, lon },
+            weather: {
+              tempC: Math.round(wJson.current.temperature_2m),
+              tempF: Math.round((wJson.current.temperature_2m * 9) / 5 + 32),
+              code: wJson.current.weather_code,
+              isDay: wJson.current.is_day === 1,
+              sunset: wJson.daily?.sunset?.[0]?.split("T")[1] || "--:--",
+            },
+            moon: { icon: "🌓", name: "Lunar Cycle", illumination: 50 },
+          };
+          renderWeatherBar();
+        } catch (__) {
+          document.getElementById("cityName").textContent = city;
+          document.getElementById("weatherDesc").textContent = "Weather unavailable";
+        }
+      }
+    }
+
+    function renderDayBundle() {
+      if (!state.dailyData) return;
+      const bundle = state.dailyData[state.activeDay] || state.dailyData.today;
+      if (!bundle) return;
+
+      document.getElementById("activeDateLabel").textContent = bundle.displayDate || bundle.isoDate;
+
+      const obsEl = document.getElementById("observancesList");
+      obsEl.innerHTML = (bundle.observances || [])
+        .map(
+          (o) => `
+          <li>
+            <span class="badge">${escapeHtml(o.region || "Global")}</span>
+            <a class="item-heading" href="${escapeHtml(o.url || "#")}" target="_blank" rel="noopener">${escapeHtml(o.title)}</a>
+            <p class="item-desc">${escapeHtml(o.description || "")}</p>
+          </li>`
+        )
+        .join("");
+
+      const musicEl = document.getElementById("musicList");
+      musicEl.innerHTML = (bundle.music || [])
+        .map(
+          (m) => `
+          <li>
+            ${m.year ? `<span class="badge gold">${escapeHtml(String(m.year))}</span>` : ""}
+            <a class="item-heading" href="${escapeHtml(m.url || "#")}" target="_blank" rel="noopener">${escapeHtml(m.title)}</a>
+            <p class="item-desc">${escapeHtml(m.detail || "")}</p>
+          </li>`
+        )
+        .join("");
+
+      const bdayEl = document.getElementById("birthdaysList");
+      bdayEl.innerHTML = (bundle.birthdays || [])
+        .map(
+          (b) => `
+          <li>
+            ${b.year ? `<span class="badge">Born ${escapeHtml(String(b.year))}</span>` : ""}
+            <a class="item-heading" href="${escapeHtml(b.url || "#")}" target="_blank" rel="noopener">${escapeHtml(b.name)}</a>
+            <p class="item-desc">${escapeHtml(b.role || "")}</p>
+            ${b.fact ? `<p class="bday-trivia">✦ ${escapeHtml(b.fact)}</p>` : ""}
+          </li>`
+        )
+        .join("");
+
+      if (bundle.word) {
+        document.getElementById("wordTerm").textContent = bundle.word.word;
+        document.getElementById("wordMeta").textContent = [bundle.word.phonetic, bundle.word.pos].filter(Boolean).join(" · ");
+        document.getElementById("wordDef").textContent = bundle.word.definition;
+        document.getElementById("wordEx").textContent = bundle.word.example ? `“${bundle.word.example}”` : "";
+      }
+
+      if (bundle.quote) {
+        document.getElementById("quoteText").textContent = `“${bundle.quote.text}”`;
+        document.getElementById("quoteAuthor").textContent = bundle.quote.role
+          ? `— ${bundle.quote.author}, ${bundle.quote.role}`
+          : `— ${bundle.quote.author}`;
+      }
+
+      renderTrivia(bundle);
+    }
+
+    function renderTrivia(bundle) {
+      const trivia = bundle.trivia;
+      if (!trivia) return;
+
+      const streak = Number(localStorage.getItem("dp_trivia_streak") || "0");
+      document.getElementById("streakBadge").textContent = `🔥 ${streak}-day streak`;
+      document.getElementById("triviaCategory").textContent = `Daily Trivia · ${trivia.category || "General"}`;
+      document.getElementById("triviaQuestion").textContent = trivia.question;
+
+      const answeredKey = `dp_trivia_ans_${bundle.isoDate}`;
+      const savedAnswer = localStorage.getItem(answeredKey);
+
+      const optionsEl = document.getElementById("triviaOptions");
+      const feedbackEl = document.getElementById("triviaFeedback");
+      feedbackEl.style.display = "none";
+
+      optionsEl.innerHTML = (trivia.options || [])
+        .map((opt) => `<button type="button" class="trivia-opt" data-opt="${escapeHtml(opt)}">${escapeHtml(opt)}</button>`)
+        .join("");
+
+      const buttons = Array.from(optionsEl.querySelectorAll(".trivia-opt"));
+
+      function lockAnswer(chosen, isNewAttempt) {
+        const isCorrect = chosen === trivia.answer;
+        buttons.forEach((btn) => {
+          btn.disabled = true;
+          const val = btn.getAttribute("data-opt");
+          if (val === trivia.answer) btn.classList.add("correct");
+          else if (val === chosen) btn.classList.add("wrong");
+        });
+
+        if (isNewAttempt) {
+          localStorage.setItem(answeredKey, chosen);
+          if (state.activeDay === "today") {
+            const lastDate = localStorage.getItem("dp_trivia_last_date");
+            if (lastDate !== bundle.isoDate) {
+              const newStreak = isCorrect ? streak + 1 : 0;
+              localStorage.setItem("dp_trivia_streak", String(newStreak));
+              localStorage.setItem("dp_trivia_last_date", bundle.isoDate);
+              document.getElementById("streakBadge").textContent = `🔥 ${newStreak}-day streak`;
+            }
+          }
+        }
+
+        feedbackEl.textContent = `${isCorrect ? "✅ Spot on! " : "❌ Not quite. "}${trivia.explanation || ""}`;
+        feedbackEl.style.display = "block";
+      }
+
+      if (savedAnswer) {
+        lockAnswer(savedAnswer, false);
+      } else {
+        buttons.forEach((btn) => {
+          btn.addEventListener("click", () => lockAnswer(btn.getAttribute("data-opt"), true));
+        });
+      }
+    }
+
+    function formatRelativeTime(pubDateStr) {
+      if (!pubDateStr) return "Latest wire";
+      const parsed = Date.parse(pubDateStr);
+      if (Number.isNaN(parsed)) return pubDateStr;
+      const diffMins = Math.max(1, Math.round((Date.now() - parsed) / 60000));
+      if (diffMins < 60) return `${diffMins}m ago`;
+      const diffHrs = Math.round(diffMins / 60);
+      if (diffHrs < 24) return `${diffHrs}h ago`;
+      return new Date(parsed).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    }
+
+    function renderNewsWire(newsObj) {
+      if (!newsObj) return;
+      const fallbacks = state.dailyData?.fallbackNews || {};
+      ["bbc", "cnn", "fox", "aljazeera"].forEach((key) => {
+        const listEl = document.getElementById(`news-${key}`);
+        let items = Array.isArray(newsObj[key]) ? [...newsObj[key]] : [];
+        if (items.length < 3 && Array.isArray(fallbacks[key])) {
+          for (const fb of fallbacks[key]) {
+            if (items.length >= 3) break;
+            if (!items.some((x) => x.title === fb.title)) {
+              items.push(fb);
+            }
+          }
+        }
+        if (items.length === 0) return;
+        listEl.innerHTML = items
+          .map(
+            (item) => `
+            <li>
+              <a class="news-link" href="${escapeHtml(item.link)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a>
+              <span class="news-time">${escapeHtml(formatRelativeTime(item.pubDate))}</span>
+            </li>`
+          )
+          .join("");
+      });
+    }
+
+    document.getElementById("wireTabs").addEventListener("click", (e) => {
+      const btn = e.target.closest(".wire-tab");
+      if (!btn) return;
+      document.querySelectorAll(".wire-tab").forEach((t) => t.classList.remove("active"));
+      btn.classList.add("active");
+      const src = btn.getAttribute("data-source");
+      document.querySelectorAll(".source-col").forEach((col) => {
+        col.style.display = src === "all" || col.getAttribute("data-col") === src ? "block" : "none";
+      });
+    });
+
+    const btnToday = document.getElementById("btnToday");
+    const btnTomorrow = document.getElementById("btnTomorrow");
+
+    btnToday.addEventListener("click", () => {
+      state.activeDay = "today";
+      btnToday.classList.add("active");
+      btnTomorrow.classList.remove("active");
+      renderDayBundle();
+    });
+
+    btnTomorrow.addEventListener("click", () => {
+      if (!state.dailyData?.tomorrow) return;
+      state.activeDay = "tomorrow";
+      btnTomorrow.classList.add("active");
+      btnToday.classList.remove("active");
+      renderDayBundle();
+    });
+
+    document.getElementById("briefingForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("briefingEmail").value.trim();
+      if (!email) return;
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "local time";
+      localStorage.setItem("dp_briefing_email", email);
+      const statusEl = document.getElementById("briefingStatus");
+      statusEl.textContent = `✓ Subscribed ${email} for the 7:00 AM briefing (${tz}).`;
+      statusEl.style.display = "block";
+      document.getElementById("briefingEmail").value = "";
+    });
+
+    const cityModal = document.getElementById("cityModal");
+    const citySearchInput = document.getElementById("citySearchInput");
+    const cityResults = document.getElementById("cityResults");
+
+    document.getElementById("openCityModal").addEventListener("click", () => {
+      cityModal.classList.add("open");
+      citySearchInput.focus();
+    });
+
+    document.getElementById("closeCityModal").addEventListener("click", () => {
+      cityModal.classList.remove("open");
+    });
+
+    cityModal.addEventListener("click", (e) => {
+      if (e.target === cityModal) cityModal.classList.remove("open");
+    });
+
+    document.getElementById("presetCities").addEventListener("click", (e) => {
+      const chip = e.target.closest(".preset-chip");
+      if (!chip) return;
+      if (chip.getAttribute("data-auto") === "1") {
+        localStorage.removeItem("dp_custom_city");
+        cityModal.classList.remove("open");
+        loadLiveEdge(null);
+        return;
+      }
+      const loc = {
+        city: chip.getAttribute("data-city"),
+        country: chip.getAttribute("data-country"),
+        lat: parseFloat(chip.getAttribute("data-lat")),
+        lon: parseFloat(chip.getAttribute("data-lon")),
+      };
+      localStorage.setItem("dp_custom_city", JSON.stringify(loc));
+      cityModal.classList.remove("open");
+      loadLiveEdge(loc);
+    });
+
+    let searchTimer = null;
+    citySearchInput.addEventListener("input", () => {
+      clearTimeout(searchTimer);
+      const q = citySearchInput.value.trim();
+      if (q.length < 2) {
+        cityResults.innerHTML = "";
+        return;
+      }
+      searchTimer = setTimeout(async () => {
+        try {
+          const res = await fetch(`/api/live?search=${encodeURIComponent(q)}`);
+          const data = await res.json();
+          cityResults.innerHTML = (data.results || [])
+            .map(
+              (r) => `
+              <li>
+                <button type="button" data-city="${escapeHtml(r.name)}" data-country="${escapeHtml(r.country)}" data-lat="${r.lat}" data-lon="${r.lon}">
+                  ${escapeHtml(r.name)}${r.admin1 ? `, ${escapeHtml(r.admin1)}` : ""} — ${escapeHtml(r.country)}
+                </button>
+              </li>`
+            )
+            .join("");
+        } catch (_) {
+          cityResults.innerHTML = "";
+        }
+      }, 280);
+    });
+
+    cityResults.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      const loc = {
+        city: btn.getAttribute("data-city"),
+        country: btn.getAttribute("data-country"),
+        lat: parseFloat(btn.getAttribute("data-lat")),
+        lon: parseFloat(btn.getAttribute("data-lon")),
+      };
+      localStorage.setItem("dp_custom_city", JSON.stringify(loc));
+      cityModal.classList.remove("open");
+      loadLiveEdge(loc);
+    });
+
+    async function init() {
+      applyTheme();
+      applyUnit();
+      document.getElementById("footerYear").textContent = String(new Date().getFullYear());
+
+      const savedCityRaw = localStorage.getItem("dp_custom_city");
+      const savedCity = savedCityRaw ? JSON.parse(savedCityRaw) : null;
+      loadLiveEdge(savedCity);
+
+      try {
+        const res = await fetch("/data/today.json?v=" + Math.floor(Date.now() / 300000));
+        state.dailyData = await res.json();
+        btnTomorrow.disabled = !state.dailyData.tomorrow;
+        if (state.dailyData.updatedAt) {
+          document.getElementById("lastUpdatedLabel").textContent =
+            "Edition updated: " + new Date(state.dailyData.updatedAt).toUTCString();
+        }
+        renderDayBundle();
+        if (state.dailyData.fallbackNews && !state.liveWeather?.news) {
+          renderNewsWire(state.dailyData.fallbackNews);
+        } else if (state.liveWeather?.news) {
+          renderNewsWire(state.liveWeather.news);
+        }
+      } catch (err) {
+        document.getElementById("activeDateLabel").textContent = new Date().toDateString();
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
