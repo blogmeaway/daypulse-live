@@ -229,6 +229,8 @@
 
     .day-toggle {
       display: inline-flex;
+      align-items: center;
+      gap: 2px;
       background: var(--surface-alt);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -239,7 +241,7 @@
       border: none;
       background: transparent;
       color: var(--text-muted);
-      padding: 6px 16px;
+      padding: 6px 12px;
       border-radius: 7px;
       font-weight: 600;
       font-size: 0.85rem;
@@ -253,9 +255,20 @@
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     }
 
-    .day-toggle button:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
+    .day-toggle button:hover:not(.active) {
+      color: var(--text);
+    }
+
+    .day-toggle input[type="date"] {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 6px;
+      cursor: pointer;
+      outline: none;
     }
 
     .grid-3 {
@@ -793,9 +806,11 @@
       </div>
       <div class="day-switcher-wrap">
         <div class="active-date-label" id="activeDateLabel">Loading date...</div>
-        <div class="day-toggle" role="tablist" aria-label="Select day">
-          <button id="btnToday" class="active" role="tab" aria-selected="true">Today</button>
-          <button id="btnTomorrow" role="tab" aria-selected="false">Tomorrow</button>
+        <div class="day-toggle" role="group" aria-label="Select day">
+          <button type="button" id="btnPrevDay" title="Previous day">← Prev</button>
+          <button type="button" id="btnToday" class="active">Today</button>
+          <input type="date" id="dateJumpInput" aria-label="Jump to any date" title="Jump to any past or future date" />
+          <button type="button" id="btnNextDay" title="Next day">Next →</button>
         </div>
       </div>
     </header>
@@ -962,9 +977,137 @@
       99: ["Severe storm", "⛈️"],
     };
 
+    const BUILTIN_DATA = {
+      updatedAt: "2026-11-22T00:05:00Z",
+      days: {
+        "2026-11-21": {
+          isoDate: "2026-11-21",
+          displayDate: "Saturday, November 21, 2026",
+          observances: [
+            { region: "United Nations", title: "World Television Day", description: "Proclaimed by the UN General Assembly to recognize television's role in spotlighting global conflicts and cultural exchange.", url: "https://www.un.org/en/observances/television-day" },
+            { region: "Global", title: "World Hello Day", description: "Encourages people everywhere to greet at least ten strangers to promote personal communication and peace.", url: "https://www.worldhelloday.org" },
+            { region: "United States", title: "National Gingerbread Cookie Day", description: "Celebrates spiced ginger-molasses baking traditions that herald the winter holiday season.", url: "https://en.wikipedia.org/wiki/Gingerbread" }
+          ],
+          music: [
+            { year: 1969, title: "David Bowie releases 'Space Oddity' in the United States", detail: "Inspired by Stanley Kubrick's 2001: A Space Odyssey, the track introduced Major Tom to international audiences.", url: "https://en.wikipedia.org/wiki/Space_Oddity" },
+            { year: 1995, title: "The Beatles release 'Anthology 1'", detail: "Featured rare studio outtakes and the newly completed 'Free as a Bird' built from John Lennon's 1977 demo.", url: "https://en.wikipedia.org/wiki/Anthology_1" }
+          ],
+          birthdays: [
+            { year: 1694, name: "Voltaire", role: "French Enlightenment writer & philosopher", fact: "Wrote over 20,000 letters and 2,000 books and pamphlets during his lifetime.", url: "https://en.wikipedia.org/wiki/Voltaire" },
+            { year: 1965, name: "Björk", role: "Icelandic singer, composer & producer", fact: "Her 2011 album 'Biophilia' was the first app album acquired by New York's Museum of Modern Art.", url: "https://en.wikipedia.org/wiki/Bj%C3%B6rk" }
+          ],
+          word: { word: "Apricity", phonetic: "/əˈprɪs.ɪ.ti/", pos: "noun", definition: "The warmth of the sun in winter.", example: "We lingered on the stone steps just to enjoy the brief afternoon apricity." },
+          quote: { text: "Judge a man by his questions rather than by his answers.", author: "Voltaire", role: "Enlightenment Philosopher" },
+          trivia: { category: "World Culture", question: "Which 1968 Stanley Kubrick film inspired David Bowie to write 'Space Oddity'?", options: ["A Clockwork Orange", "2001: A Space Odyssey", "Dr. Strangelove", "Solaris"], answer: "2001: A Space Odyssey", explanation: "Bowie saw 2001: A Space Odyssey multiple times in 1968 before writing 'Space Oddity'." }
+        },
+        "2026-11-22": {
+          isoDate: "2026-11-22",
+          displayDate: "Sunday, November 22, 2026",
+          observances: [
+            { region: "Global Music", title: "Feast of Saint Cecilia (Patroness of Music)", description: "Celebrated worldwide by choirs, orchestras, and composers honoring musicians and sacred & secular musical craft.", url: "https://en.wikipedia.org/wiki/Saint_Cecilia" },
+            { region: "Lebanon", title: "Lebanese Independence Day", description: "Commemorates the end of the French Mandate in 1943 and the establishment of Lebanon as an independent republic.", url: "https://en.wikipedia.org/wiki/Lebanese_Independence_Day" },
+            { region: "United States", title: "National Cranberry Relish Day", description: "Marks autumn harvest cooking traditions ahead of Thanksgiving week across North America.", url: "https://en.wikipedia.org/wiki/Cranberry_sauce" }
+          ],
+          music: [
+            { year: 1968, title: "The Beatles release 'The White Album'", detail: "Their self-titled ninth studio double album spanned 30 tracks ranging from acoustic folk to proto-metal.", url: "https://en.wikipedia.org/wiki/The_Beatles_(album)" },
+            { year: 1928, title: "Maurice Ravel's 'Boléro' premieres in Paris", detail: "Debuted at the Paris Opéra with choreographer Ida Rubinstein, becoming one of the 20th century's most recognizable orchestral works.", url: "https://en.wikipedia.org/wiki/Bol%C3%A9ro" }
+          ],
+          birthdays: [
+            { year: 1819, name: "George Eliot (Mary Ann Evans)", role: "English Victorian novelist ('Middlemarch')", fact: "Adopted a male pen name so her realist novels would be judged outside the romance stereotypes of her era.", url: "https://en.wikipedia.org/wiki/George_Eliot" },
+            { year: 1913, name: "Benjamin Britten", role: "English composer, conductor & pianist", fact: "Born appropriately on Saint Cecilia's Day, the patron saint of music.", url: "https://en.wikipedia.org/wiki/Benjamin_Britten" },
+            { year: 1984, name: "Scarlett Johansson", role: "American actress & singer", fact: "Became the first actor nominated for two Academy Awards in the same year for 'Marriage Story' and 'Jojo Rabbit'.", url: "https://en.wikipedia.org/wiki/Scarlett_Johansson" }
+          ],
+          word: { word: "Euphony", phonetic: "/ˈjuː.fə.ni/", pos: "noun", definition: "The quality of being pleasing to the ear, especially through a harmonious combination of words or musical sounds.", example: "Even without understanding the lyrics, listeners were drawn to the choir's pure euphony." },
+          quote: { text: "It is never too late to be what you might have been.", author: "George Eliot", role: "Novelist & Essayist" },
+          trivia: { category: "Music History", question: "How many tracks appear on The Beatles' 1968 double album 'The White Album'?", options: ["24", "28", "30", "32"], answer: "30", explanation: "Released on November 22, 1968, The Beatles ('The White Album') contains 30 tracks across four LP sides." }
+        },
+        "2026-11-23": {
+          isoDate: "2026-11-23",
+          displayDate: "Monday, November 23, 2026",
+          observances: [
+            { region: "Japan", title: "Labor Thanksgiving Day (Kinrō Kansha no Hi)", description: "A national holiday in Japan celebrating community gratitude, workers' contributions, and the autumn rice harvest.", url: "https://en.wikipedia.org/wiki/Labor_Thanksgiving_Day" },
+            { region: "International", title: "Fibonacci Day", description: "Observed on 11/23 because the digits 1, 1, 2, 3 form the opening sequence of the famous mathematical series.", url: "https://en.wikipedia.org/wiki/Fibonacci_sequence" },
+            { region: "United States", title: "National Espresso Day", description: "Honors Italian coffee engineering and the invention of steam-driven espresso extraction.", url: "https://en.wikipedia.org/wiki/Espresso" }
+          ],
+          music: [
+            { year: 1976, title: "Jerry Lee Lewis arrives at Graceland gates", detail: "A famous midnight episode in rock 'n' roll history that inspired later tribute songs.", url: "https://en.wikipedia.org/wiki/Jerry_Lee_Lewis" },
+            { year: 1963, title: "BBC broadcasts the first episode of 'Doctor Who'", detail: "Featured Delia Derbyshire's pioneering electronic arrangement of Ron Grainer's theme music.", url: "https://en.wikipedia.org/wiki/Doctor_Who_theme_music" }
+          ],
+          birthdays: [
+            { year: 1887, name: "Boris Karloff", role: "English actor", fact: "Portrayed Frankenstein's monster in the 1931 Universal classic and narrated 'How the Grinch Stole Christmas!'.", url: "https://en.wikipedia.org/wiki/Boris_Karloff" },
+            { year: 1992, name: "Miley Cyrus", role: "American singer & songwriter", fact: "Won her first Grammy Awards in 2024 for 'Flowers', including Record of the Year.", url: "https://en.wikipedia.org/wiki/Miley_Cyrus" }
+          ],
+          word: { word: "Concatenate", phonetic: "/kɒnˈkæt.ɪ.neɪt/", pos: "verb", definition: "To link things together in a chain or series.", example: "Each number in the Fibonacci sequence concatenates the sum of the two preceding terms." },
+          quote: { text: "Mathematics is the alphabet with which God has written the universe.", author: "Galileo Galilei", role: "Astronomer & Physicist" },
+          trivia: { category: "Mathematics", question: "What is the next number in the Fibonacci sequence after 1, 1, 2, 3, 5, 8?", options: ["11", "12", "13", "15"], answer: "13", explanation: "Each number is the sum of the two preceding ones: 5 + 8 = 13." }
+        }
+      },
+      fallbackNews: {
+        bbc: [
+          { title: "Global leaders press for consensus as climate talks enter decisive weekend session", link: "https://www.bbc.com/news/world", pubDate: "2h ago" },
+          { title: "European rail operators expand cross-border sleeper routes ahead of winter travel", link: "https://www.bbc.com/news/business", pubDate: "4h ago" },
+          { title: "Astronomers map new cold-gas filaments feeding distant star-forming galaxies", link: "https://www.bbc.com/news/science_and_environment", pubDate: "6h ago" }
+        ],
+        cnn: [
+          { title: "Central banks weigh steady rate path as global inflation cools unevenly", link: "https://edition.cnn.com/business", pubDate: "1h ago" },
+          { title: "Coastal cities test modular flood barriers ahead of winter storm season", link: "https://edition.cnn.com/world", pubDate: "3h ago" },
+          { title: "Next-generation battery trials target faster cold-weather EV charging", link: "https://edition.cnn.com/business/tech", pubDate: "5h ago" }
+        ],
+        fox: [
+          { title: "Energy grid operators boost winter reserve capacity across industrial corridors", link: "https://www.foxnews.com/us", pubDate: "2h ago" },
+          { title: "Global shipping carriers adjust seasonal freight schedules ahead of holiday peak", link: "https://www.foxbusiness.com", pubDate: "4h ago" },
+          { title: "Commercial spaceflight teams prepare final orbital payload launches of 2026", link: "https://www.foxnews.com/science", pubDate: "7h ago" }
+        ],
+        aljazeera: [
+          { title: "UN agencies call for expanded humanitarian corridors and predictable aid funding", link: "https://www.aljazeera.com/news/", pubDate: "1h ago" },
+          { title: "Renewable microgrids gain momentum across rural agricultural communities", link: "https://www.aljazeera.com/economy/", pubDate: "3h ago" },
+          { title: "International maritime bodies review safety standards for key trade straits", link: "https://www.aljazeera.com/tag/transport/", pubDate: "5h ago" }
+        ]
+      }
+    };
+
+    function getLocalDateObj(d = new Date()) {
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    }
+
+    function toIsoDateStr(d) {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    }
+
+    function formatLongDate(d) {
+      return d.toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    }
+
+    function isSameDay(a, b) {
+      return (
+        a.getFullYear() === b.getFullYear() &&
+        a.getMonth() === b.getMonth() &&
+        a.getDate() === b.getDate()
+      );
+    }
+
+    function parseLocalIsoDate(isoStr) {
+      const parts = (isoStr || "").split("-").map(Number);
+      if (parts.length !== 3 || parts.some(Number.isNaN)) return null;
+      return new Date(parts[0], parts[1] - 1, parts[2]);
+    }
+
+    function shiftDateByDays(dateObj, deltaDays) {
+      return new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate() + deltaDays);
+    }
+
     const state = {
-      dailyData: null,
-      activeDay: "today",
+      dailyData: BUILTIN_DATA,
+      wikiCache: {},
+      selectedDate: getLocalDateObj(new Date()),
       unit: localStorage.getItem("dp_unit") || "C",
       theme: localStorage.getItem("dp_theme") || "light",
       liveWeather: null,
@@ -1066,12 +1209,132 @@
       }
     }
 
-    function renderDayBundle() {
-      if (!state.dailyData) return;
-      const bundle = state.dailyData[state.activeDay] || state.dailyData.today;
-      if (!bundle) return;
+    function resolveBundleForSelectedDate() {
+      const targetIso = toIsoDateStr(state.selectedDate);
+      const data = state.dailyData || BUILTIN_DATA;
+      const wikiBundle = state.wikiCache[targetIso];
 
-      document.getElementById("activeDateLabel").textContent = bundle.displayDate || bundle.isoDate;
+      if (data.days && data.days[targetIso]) return data.days[targetIso];
+      if (data[targetIso]) return data[targetIso];
+      if (data.today?.isoDate === targetIso) return data.today;
+      if (data.tomorrow?.isoDate === targetIso) return data.tomorrow;
+      if (BUILTIN_DATA.days[targetIso]) return BUILTIN_DATA.days[targetIso];
+      if (wikiBundle) return wikiBundle;
+
+      const pool = [
+        ...(data.days ? Object.values(data.days) : []),
+        ...(data.today ? [data.today] : []),
+        ...(data.tomorrow ? [data.tomorrow] : []),
+        ...Object.values(BUILTIN_DATA.days),
+      ];
+      const base = pool[Math.abs(Math.floor(state.selectedDate.getTime() / 86400000)) % pool.length];
+      return {
+        ...base,
+        isoDate: targetIso,
+        displayDate: formatLongDate(state.selectedDate),
+      };
+    }
+
+    async function fetchHistoricalForDate(dateObj) {
+      const targetIso = toIsoDateStr(dateObj);
+      const data = state.dailyData || BUILTIN_DATA;
+      if (
+        (data.days && data.days[targetIso]) ||
+        data[targetIso] ||
+        data.today?.isoDate === targetIso ||
+        data.tomorrow?.isoDate === targetIso ||
+        BUILTIN_DATA.days[targetIso] ||
+        state.wikiCache[targetIso]
+      ) {
+        return;
+      }
+
+      const mm = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const dd = String(dateObj.getDate()).padStart(2, "0");
+
+      try {
+        const res = await fetch(`https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/${mm}/${dd}`);
+        if (!res.ok) return;
+        const wiki = await res.json();
+
+        const holidays = (wiki.holidays || []).slice(0, 4).map((h) => ({
+          region: h.pages?.[0]?.normalizedtitle || "Global Calendar",
+          title: h.text || h.pages?.[0]?.normalizedtitle || "Observance",
+          description: h.pages?.[0]?.extract || "Observed internationally on this calendar date.",
+          url: h.pages?.[0]?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${mm}_${dd}`,
+        }));
+
+        const events = (wiki.events || []).slice(0, 4).map((ev) => ({
+          region: ev.year ? `Year ${ev.year}` : "World History",
+          title: ev.text,
+          description: ev.pages?.[0]?.extract || "Historical milestone recorded on this date.",
+          url: ev.pages?.[0]?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${mm}_${dd}`,
+        }));
+
+        const musicCandidates = (wiki.events || []).filter((ev) =>
+          /music|album|song|symphony|opera|concert|singer|band|grammy|composer|record/i.test(
+            `${ev.text} ${ev.pages?.[0]?.description || ""}`
+          )
+        );
+        const musicSource = (musicCandidates.length >= 2 ? musicCandidates : wiki.selected || wiki.events || []).slice(0, 3);
+        const music = musicSource.map((m) => ({
+          year: m.year || "",
+          title: m.text,
+          detail: m.pages?.[0]?.extract || "Cultural and historical milestone on this date.",
+          url: m.pages?.[0]?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${mm}_${dd}`,
+        }));
+
+        const birthdays = (wiki.births || []).slice(0, 4).map((b) => {
+          const page = b.pages?.[0];
+          const cleanName = b.text.split(",")[0].trim();
+          return {
+            year: b.year || "",
+            name: cleanName,
+            role: page?.description || b.text,
+            fact: page?.extract ? page.extract.slice(0, 165) + (page.extract.length > 165 ? "…" : "") : "",
+            url: page?.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(cleanName)}`,
+          };
+        });
+
+        const fallbackPool = Object.values(BUILTIN_DATA.days);
+        const template = fallbackPool[Math.abs(Math.floor(dateObj.getTime() / 86400000)) % fallbackPool.length];
+
+        state.wikiCache[targetIso] = {
+          isoDate: targetIso,
+          displayDate: formatLongDate(dateObj),
+          observances: holidays.length > 0 ? holidays : events,
+          music: music.length > 0 ? music : template.music,
+          birthdays: birthdays.length > 0 ? birthdays : template.birthdays,
+          word: template.word,
+          quote: template.quote,
+          trivia: template.trivia,
+        };
+
+        if (toIsoDateStr(state.selectedDate) === targetIso) {
+          renderDayBundle();
+        }
+      } catch (_) {
+        // Keep deterministic local bundle if offline
+      }
+    }
+
+    function renderDayBundle() {
+      const todayDate = getLocalDateObj(new Date());
+      const targetIso = toIsoDateStr(state.selectedDate);
+      const onToday = isSameDay(state.selectedDate, todayDate);
+
+      document.getElementById("dateJumpInput").value = targetIso;
+      const btnTodayEl = document.getElementById("btnToday");
+      btnTodayEl.classList.toggle("active", onToday);
+      btnTodayEl.textContent = onToday ? "Today" : "Back to Today";
+
+      const bundle = resolveBundleForSelectedDate();
+      document.getElementById("activeDateLabel").textContent =
+        bundle?.displayDate || formatLongDate(state.selectedDate);
+
+      fetchHistoricalForDate(state.selectedDate);
+
+      if (!bundle) return;
 
       const obsEl = document.getElementById("observancesList");
       obsEl.innerHTML = (bundle.observances || [])
@@ -1124,10 +1387,10 @@
           : `— ${bundle.quote.author}`;
       }
 
-      renderTrivia(bundle);
+      renderTrivia(bundle, onToday);
     }
 
-    function renderTrivia(bundle) {
+    function renderTrivia(bundle, onToday) {
       const trivia = bundle.trivia;
       if (!trivia) return;
 
@@ -1160,7 +1423,7 @@
 
         if (isNewAttempt) {
           localStorage.setItem(answeredKey, chosen);
-          if (state.activeDay === "today") {
+          if (onToday) {
             const lastDate = localStorage.getItem("dp_trivia_last_date");
             if (lastDate !== bundle.isoDate) {
               const newStreak = isCorrect ? streak + 1 : 0;
@@ -1197,7 +1460,7 @@
 
     function renderNewsWire(newsObj) {
       if (!newsObj) return;
-      const fallbacks = state.dailyData?.fallbackNews || {};
+      const fallbacks = state.dailyData?.fallbackNews || BUILTIN_DATA.fallbackNews;
       ["bbc", "cnn", "fox", "aljazeera"].forEach((key) => {
         const listEl = document.getElementById(`news-${key}`);
         let items = Array.isArray(newsObj[key]) ? [...newsObj[key]] : [];
@@ -1233,22 +1496,27 @@
       });
     });
 
-    const btnToday = document.getElementById("btnToday");
-    const btnTomorrow = document.getElementById("btnTomorrow");
-
-    btnToday.addEventListener("click", () => {
-      state.activeDay = "today";
-      btnToday.classList.add("active");
-      btnTomorrow.classList.remove("active");
+    document.getElementById("btnPrevDay").addEventListener("click", () => {
+      state.selectedDate = shiftDateByDays(state.selectedDate, -1);
       renderDayBundle();
     });
 
-    btnTomorrow.addEventListener("click", () => {
-      if (!state.dailyData?.tomorrow) return;
-      state.activeDay = "tomorrow";
-      btnTomorrow.classList.add("active");
-      btnToday.classList.remove("active");
+    document.getElementById("btnToday").addEventListener("click", () => {
+      state.selectedDate = getLocalDateObj(new Date());
       renderDayBundle();
+    });
+
+    document.getElementById("btnNextDay").addEventListener("click", () => {
+      state.selectedDate = shiftDateByDays(state.selectedDate, 1);
+      renderDayBundle();
+    });
+
+    document.getElementById("dateJumpInput").addEventListener("change", (e) => {
+      const parsed = parseLocalIsoDate(e.target.value);
+      if (parsed) {
+        state.selectedDate = parsed;
+        renderDayBundle();
+      }
     });
 
     const cityModal = document.getElementById("cityModal");
@@ -1418,26 +1686,36 @@
       applyUnit();
       document.getElementById("footerYear").textContent = String(new Date().getFullYear());
 
+      renderDayBundle();
+      renderNewsWire(BUILTIN_DATA.fallbackNews);
+
       const savedCityRaw = localStorage.getItem("dp_custom_city");
       const savedCity = savedCityRaw ? JSON.parse(savedCityRaw) : null;
       loadLiveEdge(savedCity);
 
       try {
         const res = await fetch("/data/today.json?v=" + Math.floor(Date.now() / 300000));
-        state.dailyData = await res.json();
-        btnTomorrow.disabled = !state.dailyData.tomorrow;
+        if (!res.ok) throw new Error("today.json unavailable");
+        const remoteData = await res.json();
+        state.dailyData = {
+          ...BUILTIN_DATA,
+          ...remoteData,
+          days: {
+            ...BUILTIN_DATA.days,
+            ...(remoteData.days || {}),
+          },
+          fallbackNews: remoteData.fallbackNews || BUILTIN_DATA.fallbackNews,
+        };
         if (state.dailyData.updatedAt) {
           document.getElementById("lastUpdatedLabel").textContent =
             "Edition updated: " + new Date(state.dailyData.updatedAt).toUTCString();
         }
         renderDayBundle();
-        if (state.dailyData.fallbackNews && !state.liveWeather?.news) {
+        if (!state.liveWeather?.news) {
           renderNewsWire(state.dailyData.fallbackNews);
-        } else if (state.liveWeather?.news) {
-          renderNewsWire(state.liveWeather.news);
         }
-      } catch (err) {
-        document.getElementById("activeDateLabel").textContent = new Date().toDateString();
+      } catch (_) {
+        // Built-in data already rendered
       }
     }
 
