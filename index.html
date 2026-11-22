@@ -1042,6 +1042,15 @@
           trivia: { category: "Mathematics", question: "What is the next number in the Fibonacci sequence after 1, 1, 2, 3, 5, 8?", options: ["11", "12", "13", "15"], answer: "13", explanation: "Each number is the sum of the two preceding ones: 5 + 8 = 13." }
         }
       },
+      triviaArchivePool: [
+        { category: "Astronomy", question: "Which planet in our Solar System rotates in the opposite direction to most other planets?", options: ["Mars", "Venus", "Neptune", "Mercury"], answer: "Venus", explanation: "Venus exhibits retrograde rotation, spinning clockwise so the Sun rises in the west and sets in the east." },
+        { category: "World Geography", question: "Which strait separates Asia and North America at their closest point?", options: ["Strait of Malacca", "Bering Strait", "Davis Strait", "Strait of Hormuz"], answer: "Bering Strait", explanation: "The Bering Strait narrows to about 82 km (51 miles) between Russia's Chukchi Peninsula and Alaska." },
+        { category: "Classical Music", question: "How many symphonies did Ludwig van Beethoven complete during his lifetime?", options: ["7", "9", "11", "12"], answer: "9", explanation: "Beethoven completed nine symphonies, culminating in his Choral Symphony No. 9 in 1824." },
+        { category: "Science History", question: "Which element was discovered in 1898 by Marie and Pierre Curie alongside polonium?", options: ["Uranium", "Radium", "Thorium", "Radon"], answer: "Radium", explanation: "The Curies isolated radium from pitchblende in December 1898." },
+        { category: "Literature", question: "Who wrote the 1818 novel 'Frankenstein; or, The Modern Prometheus'?", options: ["Jane Austen", "Mary Shelley", "Emily Brontë", "George Eliot"], answer: "Mary Shelley", explanation: "Mary Shelley began writing Frankenstein at age 18 during the 1816 'Year Without a Summer'." },
+        { category: "World History", question: "In what year was the Rosetta Stone discovered in Egypt, unlocking hieroglyphic translation?", options: ["1776", "1799", "1815", "1848"], answer: "1799", explanation: "French soldiers uncovered the stele near Rashid (Rosetta) in July 1799." },
+        { category: "Earth Science", question: "What is the name of the deepest known point in Earth's seabed?", options: ["Tonga Trench", "Puerto Rico Trench", "Challenger Deep", "Java Trench"], answer: "Challenger Deep", explanation: "Located at the southern end of the Mariana Trench, Challenger Deep reaches nearly 10,935 meters." }
+      ],
       fallbackNews: {
         bbc: [
           { title: "Global leaders press for consensus as climate talks enter decisive weekend session", link: "https://www.bbc.com/news/world", pubDate: "2h ago" },
@@ -1209,6 +1218,15 @@
       }
     }
 
+    function getTriviaForDate(dateObj, explicitTrivia) {
+      if (explicitTrivia) return explicitTrivia;
+      const pool = BUILTIN_DATA.triviaArchivePool;
+      const daySeed = Math.abs(
+        dateObj.getFullYear() * 372 + (dateObj.getMonth() + 1) * 31 + dateObj.getDate()
+      );
+      return pool[daySeed % pool.length];
+    }
+
     function resolveBundleForSelectedDate() {
       const targetIso = toIsoDateStr(state.selectedDate);
       const data = state.dailyData || BUILTIN_DATA;
@@ -1232,6 +1250,7 @@
         ...base,
         isoDate: targetIso,
         displayDate: formatLongDate(state.selectedDate),
+        trivia: getTriviaForDate(state.selectedDate, null),
       };
     }
 
@@ -1307,7 +1326,7 @@
           birthdays: birthdays.length > 0 ? birthdays : template.birthdays,
           word: template.word,
           quote: template.quote,
-          trivia: template.trivia,
+          trivia: getTriviaForDate(dateObj, null),
         };
 
         if (toIsoDateStr(state.selectedDate) === targetIso) {
@@ -1391,16 +1410,18 @@
     }
 
     function renderTrivia(bundle, onToday) {
-      const trivia = bundle.trivia;
+      const trivia = bundle.trivia || getTriviaForDate(state.selectedDate, null);
       if (!trivia) return;
 
       const streak = Number(localStorage.getItem("dp_trivia_streak") || "0");
-      document.getElementById("streakBadge").textContent = `🔥 ${streak}-day streak`;
+      document.getElementById("streakBadge").textContent = onToday
+        ? `🔥 ${streak}-day streak`
+        : `📚 Archive Practice`;
       document.getElementById("triviaCategory").textContent = `Daily Trivia · ${trivia.category || "General"}`;
       document.getElementById("triviaQuestion").textContent = trivia.question;
 
       const answeredKey = `dp_trivia_ans_${bundle.isoDate}`;
-      const savedAnswer = localStorage.getItem(answeredKey);
+      const savedAnswer = onToday ? localStorage.getItem(answeredKey) : null;
 
       const optionsEl = document.getElementById("triviaOptions");
       const feedbackEl = document.getElementById("triviaFeedback");
@@ -1421,24 +1442,31 @@
           else if (val === chosen) btn.classList.add("wrong");
         });
 
-        if (isNewAttempt) {
+        if (isNewAttempt && onToday) {
           localStorage.setItem(answeredKey, chosen);
-          if (onToday) {
-            const lastDate = localStorage.getItem("dp_trivia_last_date");
-            if (lastDate !== bundle.isoDate) {
-              const newStreak = isCorrect ? streak + 1 : 0;
-              localStorage.setItem("dp_trivia_streak", String(newStreak));
-              localStorage.setItem("dp_trivia_last_date", bundle.isoDate);
-              document.getElementById("streakBadge").textContent = `🔥 ${newStreak}-day streak`;
-            }
+          const lastDate = localStorage.getItem("dp_trivia_last_date");
+          if (lastDate !== bundle.isoDate) {
+            const newStreak = isCorrect ? streak + 1 : 0;
+            localStorage.setItem("dp_trivia_streak", String(newStreak));
+            localStorage.setItem("dp_trivia_last_date", bundle.isoDate);
+            document.getElementById("streakBadge").textContent = `🔥 ${newStreak}-day streak`;
           }
         }
 
-        feedbackEl.textContent = `${isCorrect ? "✅ Spot on! " : "❌ Not quite. "}${trivia.explanation || ""}`;
+        feedbackEl.innerHTML = `${isCorrect ? "✅ Spot on! " : "❌ Not quite. "}${escapeHtml(trivia.explanation || "")}${
+          !onToday
+            ? ` <button type="button" id="retryArchiveTriviaBtn" style="margin-left:8px; text-decoration:underline; background:none; border:none; color:var(--accent); font-weight:600; cursor:pointer;">Try again</button>`
+            : ""
+        }`;
         feedbackEl.style.display = "block";
+
+        const retryBtn = document.getElementById("retryArchiveTriviaBtn");
+        if (retryBtn) {
+          retryBtn.addEventListener("click", () => renderTrivia(bundle, false));
+        }
       }
 
-      if (savedAnswer) {
+      if (savedAnswer && trivia.options?.includes(savedAnswer)) {
         lockAnswer(savedAnswer, false);
       } else {
         buttons.forEach((btn) => {
